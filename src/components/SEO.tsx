@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
@@ -16,10 +15,10 @@ const SEO: React.FC<SEOProps> = ({
   description,
   keywords = [],
   canonicalUrl,
-  ogImage = 'https://your-domain.com/default-og-image.jpg',
+  ogImage = 'https://dinorunonline.com/images/dino-game-screenshot.jpg',
   ogType = 'website'
 }) => {
-  const formattedTitle = `${title} | GameTime`;
+  const formattedTitle = `${title} | DinoRunOnline`;
   const keywordsString = keywords.join(', ');
   
   return (

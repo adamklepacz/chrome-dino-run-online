@@ -55,50 +55,14 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
               </li>
             </ul>
           </div>
-          
-          <div>
-            <h3 className="text-lg font-medium text-foreground">Game Variants</h3>
-            <ul className="mt-2 space-y-2">
-              <li>
-                <Link to="/dino-run" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Dino Run
-                </Link>
-              </li>
-              <li>
-                <Link to="/chrome-dino-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Chrome Dino Game
-                </Link>
-              </li>
-              <li>
-                <Link to="/t-rex-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  T-Rex Game
-                </Link>
-              </li>
-              <li>
-                <Link to="/dinosaur-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Dinosaur Game
-                </Link>
-              </li>
-              <li>
-                <Link to="/dino-adventure" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Dino Adventure
-                </Link>
-              </li>
-              <li>
-                <Link to="/dino-jump" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Dino Jump
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
+              
           <div>
             <h3 className="text-lg font-medium text-foreground">Contact</h3>
             <p className="mt-2 text-sm text-muted-foreground">
               Contact us if you have questions or suggestions.
             </p>
             <p className="mt-2 text-sm text-muted-foreground">
-              <a href="mailto:contact@dinorunonline.com" className="hover:text-foreground transition-colors">contact@dinorunonline.com</a>
+              <a href="mailto:adamklepacz92@gmail.com" className="hover:text-foreground transition-colors">adamklepacz92@gmail.com</a>
             </p>
           </div>
         </div>
@@ -106,6 +70,9 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
         <div className="mt-8 border-t border-border pt-8 text-center">
           <p className="text-sm text-muted-foreground">
             &copy; {currentYear} DinoRunOnline.com. All rights reserved.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Built with Cursor and Lovable (AI Toolks) 🤖 by <a href="https://github.com/adamklepacz" className="hover:text-foreground transition-colors underline">Adam Klepacz</a> as a side-project
           </p>
         </div>
       </div>

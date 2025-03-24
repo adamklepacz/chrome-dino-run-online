@@ -1,39 +1,39 @@
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
-import GamePlaceholder from '@/components/GamePlaceholder';
 import SeoContent from '@/components/SeoContent';
 import { Link } from 'react-router-dom';
 import { GameCanvas } from '@/components/dino';
 
 const Index = () => {
   const seo = {
-    title: 'Play Jumping Dino – Free Online Game',
-    description: 'Discover our addictive Jumping Dino adventure. Play free online games with no download on GameTime—fun, fast, and accessible on any device!',
-    keywords: ['free online games', 'Jumping Dino', 'Chrome Dino alternative', 'adventure browser game', 'no download games'],
-    canonicalUrl: 'https://gametime.example.com',
+    title: 'Play Chrome Dino Game Online - Free T-Rex Runner Game',
+    description: 'Play the famous Chrome Dinosaur Game online anytime. No internet connection needed to enjoy this classic T-Rex runner game on DinoRunOnline!',
+    keywords: ['chrome dino game', 't-rex runner', 'dino run', 'dinosaur game', 'chrome offline game', 'no download games'],
+    canonicalUrl: 'https://dinorunonline.com',
+    ogImage: 'https://dinorunonline.com/images/dino-game-screenshot.jpg',
   };
 
   const seoContent = {
-    title: 'Best Free Online Games – Entertainment at Your Fingertips',
-    subtitle: 'Your go-to destination for simple yet highly engaging browser games',
-    content: `GameTime is your go-to destination for simple yet highly engaging browser games. Our library of free online games is constantly growing, offering titles for every taste—from action-packed adventures to relaxing puzzles. Every game is accessible without downloading any software, so you can jump right into the action on your computer, tablet, or smartphone.`,
-    keywords: ['free online games', 'browser games', 'no download', 'adventure games', 'puzzle games', 'action games'],
+    title: 'Chrome Dinosaur Game - Play the T-Rex Runner Online',
+    subtitle: 'The famous offline dinosaur game now available online anytime',
+    content: `DinoRunOnline brings the classic Chrome Dinosaur Game to life, letting you play anytime - not just when your internet is down! Our version stays true to the original T-Rex runner while adding enhanced features and graphics. Jump over cacti, dodge pterodactyls, and set new high scores in this addictive endless runner game that works on any device with a web browser.`,
+    keywords: ['chrome dinosaur game', 't-rex runner', 'dino run', 'chrome offline game', 'browser games', 'endless runner'],
   };
 
   return (
     <MainLayout seo={seo}>
       <section className="section-container">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="page-header">Welcome to the World of Free Online Games!</h1>
-          <p className="page-subtitle">Play our thrilling adventure game "Jumping Dino" with no downloads required—experience nonstop fun wherever you are. Easy mechanics, addictive gameplay, and free access make it the perfect way to spend a few spare minutes.</p>
+          <h1 className="page-header">Play the Chrome Dinosaur Game Online!</h1>
+          <p className="page-subtitle">Enjoy the famous T-Rex runner game with no internet connection required. Jump over cacti, dodge obstacles, and see how far you can go in this classic endless runner game.</p>
         </div>
       </section>
       
       <section className="section-container py-8 md:py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-4 text-center">Jumping Dino – Embark on a Prehistoric Adventure</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">Chrome Dino Game – T-Rex Runner Adventure</h2>
           <p className="text-lg text-center mb-8 text-muted-foreground">
-            Help your friendly dinosaur leap over obstacles and collect points to beat your high score! Inspired by the popular Chrome Dino game, our browser-based adventure promises quick and exciting fun—no installation needed. All you need is a web browser and quick reflexes to immerse yourself in this prehistoric world.
+            Help your pixelated T-Rex dodge obstacles and survive as long as possible in this classic game! Originally an Easter egg in the Chrome browser, our online version lets you play anytime, with the same addictive gameplay that's made this simple runner game a worldwide phenomenon.
           </p>
           <div className="mb-8 flex justify-center">
             <Link 

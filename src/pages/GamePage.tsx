@@ -31,7 +31,7 @@ const GamePage = () => {
       
       <section className="section-container py-8 md:py-12 bg-muted/50">
         <div className="container mx-auto px-4 max-w-3xl">
-          <h2 className="text-2xl font-bold mb-6">Try Our Other Games</h2>
+          <h2 className="text-2xl font-bold mb-6">Try Other Dino Game Variants</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {gameData.relatedGames.map((game, index) => (
               <Link key={index} to={game.path} className="p-4 border rounded-lg hover:bg-accent transition-colors text-center">

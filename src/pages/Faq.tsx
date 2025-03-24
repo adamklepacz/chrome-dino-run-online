@@ -21,6 +21,10 @@ const Faq = () => {
       answer: "Playing is simple! Press SPACE or the UP ARROW key to make your dinosaur jump over obstacles like cacti. On mobile devices, tap the screen to jump. As you progress, you'll need to duck under flying pterodactyls by pressing the DOWN ARROW key. The game speeds up as your score increases, making it progressively more challenging."
     },
     {
+      question: "What are the game controls?",
+      answer: "The controls are straightforward: SPACE or UP ARROW to jump, DOWN ARROW to duck under flying obstacles, and SHIFT for special actions when available. On mobile devices, you can tap the screen to jump and swipe down to duck."
+    },
+    {
       question: "Is this exactly like the Chrome browser game?",
       answer: "Our game captures the essence of the original Chrome Dinosaur Game but offers enhanced graphics, additional features, and a better overall experience. We've kept the classic pixel art style and core gameplay that made the original so popular while adding some new elements to make it even more enjoyable."
     },
@@ -37,12 +41,16 @@ const Faq = () => {
       answer: "Yes, the Dino Game is 100% free to play with no hidden costs. We don't require any account registration or payment information. Just visit our site and enjoy playing immediately!"
     },
     {
-      question: "What's the highest score ever achieved?",
-      answer: "While we don't maintain official records, some players have reported scores exceeding 20,000 points in the original Chrome Dinosaur Game. The game becomes extremely fast at high scores, requiring perfect timing and reflexes. Can you beat this record? Give it a try and share your highest score with us!"
+      question: "Do my scores get saved?",
+      answer: "Yes, your high score is saved locally in your browser. This means you can challenge yourself to beat your personal best each time you play. However, if you clear your browser data, your high score will be reset."
     },
     {
-      question: "Are there any secret features or Easter eggs?",
-      answer: "Yes! Try playing at different times or look for special power-ups that occasionally appear. We've added some hidden features for players to discover. Keep playing to find them all!"
+      question: "Why does the game get faster as I play?",
+      answer: "The increasing speed is a core feature of the game designed to make it progressively more challenging. As your score increases, the game speeds up, requiring quicker reactions and better timing. This gradual difficulty increase keeps the gameplay exciting and ensures there's always a new challenge."
+    },
+    {
+      question: "Who created DinoRunOnline?",
+      answer: "I'm the creator behind DinoRunOnline! As an enthusiastic web developer and gaming fan, I wanted to create an enhanced version of the Chrome Dinosaur Game that everyone could enjoy anytime, not just when their internet is down. I've implemented this game using modern web technologies to provide a smooth and enjoyable experience across all devices."
     }
   ];
 
@@ -52,7 +60,7 @@ const Faq = () => {
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="page-header">Frequently Asked Questions</h1>
           <p className="page-subtitle">
-            Find answers to common questions about our free online Chrome Dinosaur Game and other browser games.
+            Find answers to common questions about our free online Chrome Dinosaur Game and how to play it.
           </p>
         </div>
       </section>
@@ -74,7 +82,7 @@ const Faq = () => {
         <div className="container mx-auto px-4 max-w-3xl text-center">
           <h2 className="text-2xl font-bold mb-6">Ready to Play?</h2>
           <p className="text-muted-foreground mb-6">
-            Now that you know more about our games, why not try them out? Click any of the links below to start playing:
+            Now that you know more about our game, why not try it out? Click any of the links below to start playing:
           </p>
           
           <div className="flex flex-wrap justify-center gap-4">
