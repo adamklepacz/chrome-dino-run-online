@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="text-xl font-bold text-foreground flex items-center gap-2 transition-all hover:opacity-80">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse-subtle"></span>
-          GameTime
+          Dino Run Online
         </Link>
         
         <nav className="hidden md:flex gap-6">
