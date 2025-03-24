@@ -18,16 +18,19 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         
         <nav className="hidden md:flex gap-6">
           <Link to="/" className="text-foreground/80 hover:text-foreground transition-colors">
-            Strona główna
+            Home
           </Link>
           <Link to="/gra-logiczna" className="text-foreground/80 hover:text-foreground transition-colors">
-            Gra Logiczna
+            Logical Game
           </Link>
           <Link to="/gra-zrecznosciowa" className="text-foreground/80 hover:text-foreground transition-colors">
-            Gra Zręcznościowa
+            Arcade Game
           </Link>
           <Link to="/gra-strategiczna" className="text-foreground/80 hover:text-foreground transition-colors">
-            Gra Strategiczna
+            Strategy Game
+          </Link>
+          <Link to="/faq" className="text-foreground/80 hover:text-foreground transition-colors">
+            FAQ
           </Link>
         </nav>
         

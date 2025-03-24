@@ -3,38 +3,44 @@ import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import GamePlaceholder from '@/components/GamePlaceholder';
 import SeoContent from '@/components/SeoContent';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   const seo = {
-    title: 'Najlepsze Darmowe Gry Online',
-    description: 'Odkryj najlepsze darmowe gry online na GameTime. Graj w gry logiczne, zręcznościowe i strategiczne bez pobierania. Zabij nudę i spędź czas w przyjemny sposób.',
-    keywords: ['darmowe gry online', 'gry przeglądarkowe', 'gry bez pobierania', 'gry logiczne', 'gry zręcznościowe'],
+    title: 'Play Jumping Dino – Free Online Game',
+    description: 'Discover our addictive Jumping Dino adventure. Play free online games with no download on GameTime—fun, fast, and accessible on any device!',
+    keywords: ['free online games', 'Jumping Dino', 'Chrome Dino alternative', 'adventure browser game', 'no download games'],
     canonicalUrl: 'https://gametime.example.com',
   };
 
   const seoContent = {
-    title: 'Najlepsze Darmowe Gry Online',
-    subtitle: 'Zabij nudę grając w nasze wciągające gry przeglądarkowe',
-    content: `GameTime to najlepsze miejsce dla tych, którzy szukają szybkiej i wciągającej rozrywki. Nasze gry przeglądarkowe nie wymagają pobierania ani instalacji - wystarczy otworzyć stronę i zacząć grać!
-
-Oferujemy szeroki wybór gier logicznych, zręcznościowych i strategicznych, które pomogą Ci zabić nudę i spędzić czas w przyjemny sposób. Wszystkie nasze gry są darmowe i dostępne 24/7.
-
-Dzięki intuicyjnemu interfejsowi i prostym zasadom, nasze gry są odpowiednie zarówno dla początkujących, jak i zaawansowanych graczy. Nie czekaj - zacznij grać już teraz!`,
-    keywords: ['darmowe gry online', 'gry przeglądarkowe', 'gry bez pobierania', 'gry logiczne', 'gry zręcznościowe', 'zabij nudę'],
+    title: 'Best Free Online Games – Entertainment at Your Fingertips',
+    subtitle: 'Your go-to destination for simple yet highly engaging browser games',
+    content: `GameTime is your go-to destination for simple yet highly engaging browser games. Our library of free online games is constantly growing, offering titles for every taste—from action-packed adventures to relaxing puzzles. Every game is accessible without downloading any software, so you can jump right into the action on your computer, tablet, or smartphone.`,
+    keywords: ['free online games', 'browser games', 'no download', 'adventure games', 'puzzle games', 'action games'],
   };
 
   return (
     <MainLayout seo={seo}>
       <section className="section-container">
         <div className="mx-auto max-w-3xl text-center">
-          <h1 className="page-header">Witaj w świecie darmowych gier online</h1>
-          <p className="page-subtitle">Zagraj w nasze wciągające gry bez pobierania i ciesz się rozrywką w każdej chwili.</p>
+          <h1 className="page-header">Welcome to the World of Free Online Games!</h1>
+          <p className="page-subtitle">Play our thrilling adventure game "Jumping Dino" with no downloads required—experience nonstop fun wherever you are. Easy mechanics, addictive gameplay, and free access make it the perfect way to spend a few spare minutes.</p>
         </div>
       </section>
       
       <section className="section-container py-8 md:py-12">
         <div className="container mx-auto px-4">
-          <GamePlaceholder title="Wybrana Gra" />
+          <h2 className="text-2xl font-bold mb-4 text-center">Jumping Dino – Embark on a Prehistoric Adventure</h2>
+          <p className="text-lg text-center mb-8 text-muted-foreground">
+            Help your friendly dinosaur leap over obstacles and collect points to beat your high score! Inspired by the popular Chrome Dino game, our browser-based adventure promises quick and exciting fun—no installation needed. All you need is a web browser and quick reflexes to immerse yourself in this prehistoric world.
+          </p>
+          <GamePlaceholder title="Jumping Dino" />
+          <div className="mt-6 text-center">
+            <Link to="/faq" className="text-primary hover:text-primary/80 transition-colors">
+              Have questions? Check our FAQ →
+            </Link>
+          </div>
         </div>
       </section>
       

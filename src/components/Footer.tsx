@@ -17,68 +17,73 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           <div>
             <h3 className="text-lg font-medium text-foreground">GameTime</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Graj w nasze gry w dowolnym miejscu i czasie. Zabij nudę i spędź czas w przyjemny sposób.
+              Play our games anytime, anywhere. Kill boredom and have fun with our free online games.
             </p>
           </div>
           
           <div>
-            <h3 className="text-lg font-medium text-foreground">Nawigacja</h3>
+            <h3 className="text-lg font-medium text-foreground">Navigation</h3>
             <ul className="mt-2 space-y-2">
               <li>
                 <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Strona główna
+                  Home
                 </Link>
               </li>
               <li>
                 <Link to="/gra-logiczna" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Gra Logiczna
+                  Logical Game
                 </Link>
               </li>
               <li>
                 <Link to="/gra-zrecznosciowa" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Gra Zręcznościowa
+                  Arcade Game
                 </Link>
               </li>
               <li>
                 <Link to="/gra-strategiczna" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Gra Strategiczna
+                  Strategy Game
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  FAQ
                 </Link>
               </li>
             </ul>
           </div>
           
           <div>
-            <h3 className="text-lg font-medium text-foreground">Gry</h3>
+            <h3 className="text-lg font-medium text-foreground">Games</h3>
             <ul className="mt-2 space-y-2">
               <li>
                 <span className="text-sm text-muted-foreground">
-                  Gry Logiczne
+                  Logical Games
                 </span>
               </li>
               <li>
                 <span className="text-sm text-muted-foreground">
-                  Gry Zręcznościowe
+                  Arcade Games
                 </span>
               </li>
               <li>
                 <span className="text-sm text-muted-foreground">
-                  Gry Strategiczne
+                  Strategy Games
                 </span>
               </li>
             </ul>
           </div>
           
           <div>
-            <h3 className="text-lg font-medium text-foreground">Kontakt</h3>
+            <h3 className="text-lg font-medium text-foreground">Contact</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Skontaktuj się z nami, jeśli masz pytania lub sugestie.
+              Contact us if you have questions or suggestions.
             </p>
           </div>
         </div>
         
         <div className="mt-8 border-t border-border pt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} GameTime. Wszelkie prawa zastrzeżone.
+            &copy; {currentYear} GameTime. All rights reserved.
           </p>
         </div>
       </div>
