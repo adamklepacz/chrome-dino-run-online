@@ -22,14 +22,14 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           <Link to="/dino-game" className="text-foreground/80 hover:text-foreground transition-colors font-medium text-primary">
             Dino Game
           </Link>
-          <Link to="/gra-logiczna" className="text-foreground/80 hover:text-foreground transition-colors">
-            Logical Game
+          <Link to="/chrome-dino-game" className="text-foreground/80 hover:text-foreground transition-colors">
+            Chrome Dino
           </Link>
-          <Link to="/gra-zrecznosciowa" className="text-foreground/80 hover:text-foreground transition-colors">
-            Arcade Game
+          <Link to="/t-rex-game" className="text-foreground/80 hover:text-foreground transition-colors">
+            T-Rex Game
           </Link>
-          <Link to="/gra-strategiczna" className="text-foreground/80 hover:text-foreground transition-colors">
-            Strategy Game
+          <Link to="/free-online-games" className="text-foreground/80 hover:text-foreground transition-colors">
+            Free Games
           </Link>
           <Link to="/faq" className="text-foreground/80 hover:text-foreground transition-colors">
             FAQ

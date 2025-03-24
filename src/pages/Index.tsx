@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/MainLayout';
 import GamePlaceholder from '@/components/GamePlaceholder';
 import SeoContent from '@/components/SeoContent';
 import { Link } from 'react-router-dom';
+import { GameCanvas } from '@/components/dino';
 
 const Index = () => {
   const seo = {
@@ -42,7 +43,7 @@ const Index = () => {
               Play Dino Game Now →
             </Link>
           </div>
-          <GamePlaceholder title="Game Preview" />
+          <GameCanvas />
           <div className="mt-6 text-center">
             <Link to="/faq" className="text-primary hover:text-primary/80 transition-colors">
               Have questions? Check our FAQ →

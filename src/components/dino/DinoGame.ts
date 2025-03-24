@@ -6,7 +6,7 @@ const INITIAL_GAME_SPEED = 7;
 const MAX_GAME_SPEED = 17;
 const SCORE_INCREMENT = 1;
 const SCORE_INTERVAL = 6; 
-const WEAPON_SCORE_THRESHOLD = 400; // Score needed to get a weapon
+const WEAPON_SCORE_THRESHOLD = 100; // Score needed to get a weapon
 const MONSTER_SCORE = 20; // Extra points for shooting a monster
 const CLOUD_FREQUENCY = 150; // How often a new cloud appears
 
@@ -59,6 +59,7 @@ export class DinoGame {
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private spriteSheet: HTMLImageElement;
+  private gunImage: HTMLImageElement;
   private groundY: number;
   private animationId: number | null = null;
   private frameCount: number = 0;
@@ -113,7 +114,7 @@ export class DinoGame {
   private numbersY = 0;
   private numberWidth = 20;
   private numberHeight = 23;
-  private refreshIconX = 0;  // First icon on the left in sprite.png
+  private refreshIconX = 2;  // First icon on the left in sprite.png
   private refreshIconY = 2;
   private refreshIconWidth = 36;
   private refreshIconHeight = 32;
@@ -165,6 +166,10 @@ export class DinoGame {
     
     const sprite4 = new Image();
     sprite4.src = '/dino-assets/sprite4.png';
+    
+    // Load gun image
+    this.gunImage = new Image();
+    this.gunImage.src = '/dino-assets/gun.png';
   }
   
   public start(): void {
@@ -691,16 +696,17 @@ export class DinoGame {
     
     // Draw weapon on dino if has weapon
     if (this.dino.hasWeapon) {
-      this.ctx.fillStyle = '#000000';
       const weaponY = this.dino.crouching ? 
         this.dino.y + this.dino.height / 4 : 
         this.dino.y + this.dino.height / 3;
       
-      this.ctx.fillRect(
-        this.dino.x + this.dino.width - 15,
-        weaponY,
-        20,
-        10
+      // Draw gun image instead of rectangle
+      this.ctx.drawImage(
+        this.gunImage,
+        this.dino.x + this.dino.width - 30, // Adjust position as needed
+        weaponY - 5, // Adjust position as needed
+        30, // Width
+        20  // Height
       );
     }
     
@@ -744,16 +750,14 @@ export class DinoGame {
   private drawWeapons(): void {
     for (const weapon of this.weapons) {
       if (weapon.visible) {
-        // Draw weapon sprite
-        this.ctx.fillStyle = '#0000FF';
-        this.ctx.fillRect(
-          weapon.x, weapon.y, weapon.width, weapon.height
+        // Draw gun image instead of blue rectangle with text
+        this.ctx.drawImage(
+          this.gunImage,
+          weapon.x,
+          weapon.y,
+          weapon.width,
+          weapon.height
         );
-        
-        // Draw gun text
-        this.ctx.fillStyle = '#FFFFFF';
-        this.ctx.font = '16px Arial';
-        this.ctx.fillText('GUN', weapon.x + 5, weapon.y + 20);
       }
     }
   }
@@ -812,12 +816,14 @@ export class DinoGame {
       digitX += this.numberWidth + 2; // Move to next digit position with spacing
     }
     
-    // Draw refresh icon
+    // Draw refresh icon - ensuring it's fully visible
+    // Increased size for better visibility and adjusted position
+    const iconSize = 48;
     this.ctx.drawImage(
       this.spriteSheet,
       this.refreshIconX, this.refreshIconY, this.refreshIconWidth, this.refreshIconHeight,
-      (this.canvas.width - this.refreshIconWidth) / 2, this.canvas.height / 2 + 30,
-      this.refreshIconWidth, this.refreshIconHeight
+      (this.canvas.width - iconSize) / 2, this.canvas.height / 2 + 40,
+      iconSize, iconSize
     );
     
     // Reset text alignment

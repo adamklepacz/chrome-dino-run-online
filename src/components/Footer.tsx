@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -15,9 +14,9 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
           <div>
-            <h3 className="text-lg font-medium text-foreground">GameTime</h3>
+            <h3 className="text-lg font-medium text-foreground">DinoRunOnline</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Play our games anytime, anywhere. Kill boredom and have fun with our free online games.
+              Play the Chrome Dinosaur Game anytime, anywhere. Kill boredom and have fun with our free online games.
             </p>
           </div>
           
@@ -30,18 +29,23 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 </Link>
               </li>
               <li>
-                <Link to="/gra-logiczna" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Logical Game
+                <Link to="/dino-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Dino Game
                 </Link>
               </li>
               <li>
-                <Link to="/gra-zrecznosciowa" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Arcade Game
+                <Link to="/chrome-dino-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Chrome Dino
                 </Link>
               </li>
               <li>
-                <Link to="/gra-strategiczna" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Strategy Game
+                <Link to="/t-rex-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  T-Rex Game
+                </Link>
+              </li>
+              <li>
+                <Link to="/free-online-games" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Free Games
                 </Link>
               </li>
               <li>
@@ -53,22 +57,37 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           </div>
           
           <div>
-            <h3 className="text-lg font-medium text-foreground">Games</h3>
+            <h3 className="text-lg font-medium text-foreground">Game Variants</h3>
             <ul className="mt-2 space-y-2">
               <li>
-                <span className="text-sm text-muted-foreground">
-                  Logical Games
-                </span>
+                <Link to="/dino-run" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Dino Run
+                </Link>
               </li>
               <li>
-                <span className="text-sm text-muted-foreground">
-                  Arcade Games
-                </span>
+                <Link to="/chrome-dino-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Chrome Dino Game
+                </Link>
               </li>
               <li>
-                <span className="text-sm text-muted-foreground">
-                  Strategy Games
-                </span>
+                <Link to="/t-rex-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  T-Rex Game
+                </Link>
+              </li>
+              <li>
+                <Link to="/dinosaur-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Dinosaur Game
+                </Link>
+              </li>
+              <li>
+                <Link to="/dino-adventure" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Dino Adventure
+                </Link>
+              </li>
+              <li>
+                <Link to="/dino-jump" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Dino Jump
+                </Link>
               </li>
             </ul>
           </div>
@@ -78,12 +97,15 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             <p className="mt-2 text-sm text-muted-foreground">
               Contact us if you have questions or suggestions.
             </p>
+            <p className="mt-2 text-sm text-muted-foreground">
+              <a href="mailto:contact@dinorunonline.com" className="hover:text-foreground transition-colors">contact@dinorunonline.com</a>
+            </p>
           </div>
         </div>
         
         <div className="mt-8 border-t border-border pt-8 text-center">
           <p className="text-sm text-muted-foreground">
-            &copy; {currentYear} GameTime. All rights reserved.
+            &copy; {currentYear} DinoRunOnline.com. All rights reserved.
           </p>
         </div>
       </div>

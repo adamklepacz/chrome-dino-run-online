@@ -1,5 +1,9 @@
-
+# Allow all web crawlers to access all content
 User-agent: *
 Allow: /
 
-Sitemap: https://gametime.example.com/sitemap.xml
+# Sitemap location for search engines
+Sitemap: https://dinorunonline.com/sitemap.xml
+
+# Encourage fast crawling
+Crawl-delay: 1

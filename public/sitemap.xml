@@ -1,32 +1,85 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://gametime.example.com/</loc>
+    <loc>https://dinorunonline.com/</loc>
     <lastmod>2023-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://gametime.example.com/gra-logiczna</loc>
+    <loc>https://dinorunonline.com/dino-game</loc>
+    <lastmod>2023-09-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/dino-run</loc>
+    <lastmod>2023-09-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/dino-adventure</loc>
+    <lastmod>2023-09-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/dino-jump</loc>
+    <lastmod>2023-09-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/chrome-dino-game</loc>
+    <lastmod>2023-09-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/t-rex-game</loc>
+    <lastmod>2023-09-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/dinosaur-game</loc>
+    <lastmod>2023-09-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/arcade-games</loc>
     <lastmod>2023-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gametime.example.com/gra-zrecznosciowa</loc>
+    <loc>https://dinorunonline.com/logic-games</loc>
     <lastmod>2023-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gametime.example.com/gra-strategiczna</loc>
+    <loc>https://dinorunonline.com/strategy-games</loc>
     <lastmod>2023-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://gametime.example.com/faq</loc>
+    <loc>https://dinorunonline.com/free-online-games</loc>
+    <lastmod>2023-09-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/browser-games</loc>
+    <lastmod>2023-09-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/faq</loc>
     <lastmod>2023-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
