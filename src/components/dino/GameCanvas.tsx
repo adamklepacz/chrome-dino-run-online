@@ -9,6 +9,7 @@ const GameCanvas: React.FC = () => {
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
   const [hasWeapon, setHasWeapon] = useState(false);
+  const [isCrouching, setIsCrouching] = useState(false);
   
   // Funkcja do synchronizacji stanu gry
   const syncGameState = useCallback(() => {
@@ -20,6 +21,7 @@ const GameCanvas: React.FC = () => {
     setScore(game.getScore());
     setHighScore(game.getHighScore());
     setHasWeapon(game.hasWeapon());
+    setIsCrouching(game.isCrouching());
   }, []);
   
   // Funkcja do obsługi zdarzenia gameOver
@@ -27,6 +29,12 @@ const GameCanvas: React.FC = () => {
     setGameOver(true);
     syncGameState();
   }, [syncGameState]);
+  
+  // Funkcja do obsługi schylania się
+  const handleCrouch = useCallback((isCrouching: boolean) => {
+    if (!gameRef.current) return;
+    gameRef.current.handleCrouch(isCrouching);
+  }, []);
   
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -55,21 +63,35 @@ const GameCanvas: React.FC = () => {
       } else if (e.code === 'ShiftLeft' || e.code === 'ShiftRight') {
         e.preventDefault();
         gameRef.current.handleShoot();
+      } else if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+        e.preventDefault();
+        handleCrouch(true);
+      }
+    };
+    
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (!gameRef.current) return;
+      
+      if (e.code === 'ArrowDown' || e.code === 'KeyS') {
+        e.preventDefault();
+        handleCrouch(false);
       }
     };
     
     // Add key event listeners
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keyup', handleKeyUp);
     
     // Clean up
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keyup', handleKeyUp);
       clearInterval(stateInterval);
       if (gameRef.current) {
         gameRef.current.stop();
       }
     };
-  }, [handleGameOver, syncGameState]);
+  }, [handleGameOver, syncGameState, handleCrouch]);
   
   const handleJumpButtonClick = () => {
     if (!gameRef.current) return;
@@ -79,6 +101,14 @@ const GameCanvas: React.FC = () => {
   const handleShootButtonClick = () => {
     if (!gameRef.current) return;
     gameRef.current.handleShoot();
+  };
+  
+  const handleCrouchButtonPress = () => {
+    handleCrouch(true);
+  };
+  
+  const handleCrouchButtonRelease = () => {
+    handleCrouch(false);
   };
   
   return (
@@ -102,26 +132,15 @@ const GameCanvas: React.FC = () => {
           <div className="absolute inset-0 flex items-center justify-center flex-col bg-background/80">
             <h2 className="text-2xl font-bold mb-4">Press SPACE to Start</h2>
             <p className="text-muted-foreground mb-2">Jump with SPACE, Shoot with SHIFT</p>
+            <p className="text-muted-foreground mb-2">Crouch with DOWN ARROW</p>
             <p className="text-xs text-muted-foreground/80 mt-2">A weapon will appear when you reach 400 points</p>
           </div>
         )}
         
-        {gameOver && (
-          <div className="absolute inset-0 flex items-center justify-center flex-col bg-background/80">
-            <h2 className="text-2xl font-bold mb-4">Game Over</h2>
-            <p className="text-lg mb-2">Score: {score}</p>
-            <p className="text-muted-foreground mb-4">Press SPACE to restart</p>
-            <button 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 py-2 px-4 rounded-lg"
-              onClick={handleJumpButtonClick}
-            >
-              Restart Game
-            </button>
-          </div>
-        )}
+        {/* Game over overlay has been removed and is now handled in DinoGame.ts */}
       </div>
       
-      <div className="mt-4 grid grid-cols-2 gap-4 w-full max-w-md">
+      <div className="mt-4 grid grid-cols-3 gap-4 w-full max-w-md">
         <button 
           className="btn bg-primary text-primary-foreground hover:bg-primary/90 py-3 px-4 rounded-lg font-medium text-lg flex items-center justify-center"
           onClick={handleJumpButtonClick}
@@ -142,13 +161,30 @@ const GameCanvas: React.FC = () => {
           <kbd className="bg-primary-foreground/20 px-2 py-1 rounded mr-2 text-sm">SHIFT</kbd>
           Shoot
         </button>
+        
+        <button 
+          className="btn bg-primary text-primary-foreground hover:bg-primary/90 py-3 px-4 rounded-lg font-medium text-lg flex items-center justify-center"
+          onMouseDown={handleCrouchButtonPress}
+          onMouseUp={handleCrouchButtonRelease}
+          onMouseLeave={handleCrouchButtonRelease}
+          onTouchStart={handleCrouchButtonPress}
+          onTouchEnd={handleCrouchButtonRelease}
+          disabled={gameOver || !gameStarted}
+        >
+          <kbd className="bg-primary-foreground/20 px-2 py-1 rounded mr-2 text-sm">↓</kbd>
+          Crouch
+        </button>
       </div>
       
-      {gameStarted && !gameOver && score < 400 && !hasWeapon && (
-        <div className="mt-2 text-xs text-muted-foreground">
-          Reach 400 points to get a weapon!
-        </div>
-      )}
+      <div className="mt-4 text-xs text-muted-foreground text-center max-w-md">
+        <p className="mb-1">Controls: <kbd className="px-1 rounded bg-muted">SPACE</kbd> to jump, <kbd className="px-1 rounded bg-muted">SHIFT</kbd> to shoot, <kbd className="px-1 rounded bg-muted">↓</kbd> to crouch</p>
+        
+        {gameStarted && !gameOver && score < 400 && !hasWeapon && (
+          <p className="mt-2">
+            Reach 400 points to get a weapon!
+          </p>
+        )}
+      </div>
     </div>
   );
 };

@@ -8,6 +8,7 @@ const SCORE_INCREMENT = 1;
 const SCORE_INTERVAL = 6; 
 const WEAPON_SCORE_THRESHOLD = 400; // Score needed to get a weapon
 const MONSTER_SCORE = 20; // Extra points for shooting a monster
+const CLOUD_FREQUENCY = 150; // How often a new cloud appears
 
 // Types for game objects
 interface GameObject {
@@ -22,6 +23,7 @@ interface Dino extends GameObject {
   velocityY: number;
   jumping: boolean;
   hasWeapon: boolean;
+  crouching: boolean;
 }
 
 interface Obstacle extends GameObject {
@@ -41,6 +43,10 @@ interface Bullet extends GameObject {
   speed: number;
 }
 
+interface Cloud extends GameObject {
+  speed: number;
+}
+
 interface GameState {
   score: number;
   highScore: number;
@@ -57,6 +63,7 @@ export class DinoGame {
   private animationId: number | null = null;
   private frameCount: number = 0;
   private lastFrameTime: number = 0;
+  private groundOffset: number = 0;
   
   // Callback for game over event
   public onGameOver: () => void = () => {};
@@ -67,6 +74,7 @@ export class DinoGame {
   private monsters: Monster[] = [];
   private weapons: Weapon[] = [];
   private bullets: Bullet[] = [];
+  private clouds: Cloud[] = [];
 
   // Game state
   private state: GameState = {
@@ -81,9 +89,42 @@ export class DinoGame {
   private dinoRunning1X = 1514;
   private dinoRunning2X = 1602;
   private dinoJumpingX = 1338;
+  private dinoCrouching1X = 1866;
+  private dinoCrouching2X = 1984;
   private dinoWidth = 88;
   private dinoHeight = 94;
+  private dinoCrouchWidth = 118;
+  private dinoCrouchHeight = 60;
+  private cloudX = 166;
+  private cloudY = 2;
+  private cloudWidth = 92;
+  private cloudHeight = 27;
+  private groundX = 0;
+  private groundSpriteY = 104;
+  private groundWidth = 2404;
+  private groundHeight = 24;
   
+  // Add these sprite coordinates for game over text and numbers
+  private gameOverX = 954;
+  private gameOverY = 25;
+  private gameOverWidth = 382;
+  private gameOverHeight = 23;
+  private numbersX = 954;
+  private numbersY = 0;
+  private numberWidth = 20;
+  private numberHeight = 23;
+  private refreshIconX = 0;  // First icon on the left in sprite.png
+  private refreshIconY = 2;
+  private refreshIconWidth = 36;
+  private refreshIconHeight = 32;
+  
+  // For crouching animation
+  private calculateCrouchY(): number {
+    // This ensures the dinosaur sits visually on top of the ground line
+    // instead of sinking into it
+    return this.groundY - this.dinoCrouchHeight;
+  }
+
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     const context = canvas.getContext('2d');
@@ -98,12 +139,13 @@ export class DinoGame {
     // Initialize dino
     this.dino = {
       x: 100,
-      y: this.groundY - 94, // Dino height
-      width: 88,
-      height: 94,
+      y: this.groundY - this.dinoHeight, // Dino height
+      width: this.dinoWidth,
+      height: this.dinoHeight,
       velocityY: 0,
       jumping: false,
-      hasWeapon: false
+      hasWeapon: false,
+      crouching: false
     };
     
     // Load sprite sheet
@@ -145,17 +187,38 @@ export class DinoGame {
     this.monsters = [];
     this.weapons = [];
     this.bullets = [];
+    this.clouds = [];
+    this.groundOffset = 0;
+    
+    // Initialize some clouds
+    this.generateInitialClouds();
     
     // Reset dino
     this.dino.y = this.groundY - this.dino.height;
     this.dino.velocityY = 0;
     this.dino.jumping = false;
     this.dino.hasWeapon = false;
+    this.dino.crouching = false;
+    this.dino.width = this.dinoWidth;
+    this.dino.height = this.dinoHeight;
     
     // Start game loop
     this.lastFrameTime = performance.now();
     this.frameCount = 0;
     this.gameLoop(this.lastFrameTime);
+  }
+  
+  private generateInitialClouds(): void {
+    // Create a few clouds at game start for a nicer look
+    for (let i = 0; i < 3; i++) {
+      this.clouds.push({
+        x: Math.random() * this.canvas.width,
+        y: 50 + Math.random() * 100,
+        width: this.cloudWidth,
+        height: this.cloudHeight,
+        speed: this.state.gameSpeed * 0.5
+      });
+    }
   }
   
   public stop(): void {
@@ -178,10 +241,45 @@ export class DinoGame {
       return;
     }
     
+    // Cannot jump while crouching
+    if (this.dino.crouching) {
+      return;
+    }
+    
     // If dino is not jumping, make it jump
     if (!this.dino.jumping) {
       this.dino.velocityY = JUMP_VELOCITY;
       this.dino.jumping = true;
+    }
+  }
+  
+  public handleCrouch(isCrouching: boolean): void {
+    if (!this.state.gameStarted || this.state.gameOver) return;
+    
+    // Cannot crouch while jumping
+    if (this.dino.jumping) return;
+    
+    if (isCrouching) {
+      // Start crouching
+      if (!this.dino.crouching) {
+        this.dino.crouching = true;
+        // Update hitbox size
+        this.dino.width = this.dinoCrouchWidth;
+        this.dino.height = this.dinoCrouchHeight;
+        // Update position to align with ground, but not sink into it
+        // The dinosaur should appear at the ground level, not below it
+        this.dino.y = this.calculateCrouchY();
+      }
+    } else {
+      // Stop crouching
+      if (this.dino.crouching) {
+        this.dino.crouching = false;
+        // Restore hitbox size
+        this.dino.width = this.dinoWidth;
+        this.dino.height = this.dinoHeight;
+        // Update position to align with ground
+        this.dino.y = this.groundY - this.dino.height;
+      }
     }
   }
   
@@ -234,12 +332,16 @@ export class DinoGame {
       MAX_GAME_SPEED
     );
     
+    // Update ground position
+    this.updateGround();
+    
     // Update dino position
     this.updateDino();
     
     // Generate obstacles and monsters
     this.generateObstacles();
     this.generateMonsters();
+    this.generateClouds();
     
     // Generate weapon if score threshold reached
     if (this.state.score >= WEAPON_SCORE_THRESHOLD && !this.dino.hasWeapon && this.weapons.length === 0) {
@@ -258,21 +360,54 @@ export class DinoGame {
     // Update bullets
     this.updateBullets();
     
+    // Update clouds
+    this.updateClouds();
+    
     // Check collisions
     this.checkCollisions();
   }
   
+  private updateGround(): void {
+    // Scroll ground based on game speed
+    this.groundOffset = (this.groundOffset + this.state.gameSpeed) % this.groundWidth;
+  }
+  
   private updateDino(): void {
-    // Apply gravity to dino
-    this.dino.velocityY += GRAVITY;
-    this.dino.y += this.dino.velocityY;
-    
-    // Check if dino is on ground
-    if (this.dino.y >= this.groundY - this.dino.height) {
-      this.dino.y = this.groundY - this.dino.height;
-      this.dino.velocityY = 0;
-      this.dino.jumping = false;
+    // Apply gravity to dino if jumping
+    if (this.dino.jumping) {
+      this.dino.velocityY += GRAVITY;
+      this.dino.y += this.dino.velocityY;
+      
+      // Check if dino is on ground
+      if (this.dino.y >= this.groundY - this.dino.height) {
+        this.dino.y = this.groundY - this.dino.height;
+        this.dino.velocityY = 0;
+        this.dino.jumping = false;
+      }
     }
+  }
+  
+  private generateClouds(): void {
+    // Random cloud generation
+    if (this.frameCount % CLOUD_FREQUENCY === 0 && Math.random() < 0.6) {
+      const randomY = 20 + Math.random() * 100; // Random height for clouds
+      
+      this.clouds.push({
+        x: this.canvas.width,
+        y: randomY,
+        width: this.cloudWidth,
+        height: this.cloudHeight,
+        speed: this.state.gameSpeed * 0.3 + Math.random() * 0.3 // Clouds move slower than the game
+      });
+    }
+  }
+  
+  private updateClouds(): void {
+    // Move clouds and remove if off screen
+    this.clouds = this.clouds.filter(cloud => {
+      cloud.x -= cloud.speed;
+      return cloud.x + cloud.width > 0;
+    });
   }
   
   private generateObstacles(): void {
@@ -427,6 +562,10 @@ export class DinoGame {
   }
   
   private gameOver(): void {
+    if (this.state.gameOver) {
+      return; // Already in game over state
+    }
+    
     this.state.gameOver = true;
     
     // Update high score
@@ -434,14 +573,25 @@ export class DinoGame {
       this.state.highScore = this.state.score;
     }
     
-    // Call the gameOver callback
-    this.onGameOver();
+    // Stop game loop
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
     
-    // Draw game over screen
+    // Draw the game over screen
     this.drawGameOver();
+    
+    // Trigger game over callback
+    if (this.onGameOver) {
+      this.onGameOver();
+    }
   }
   
   private draw(): void {
+    // Draw background (clouds)
+    this.drawClouds();
+    
     // Draw ground
     this.drawGround();
     
@@ -469,48 +619,94 @@ export class DinoGame {
     }
   }
   
+  private drawClouds(): void {
+    // Draw all clouds
+    for (const cloud of this.clouds) {
+      this.ctx.drawImage(
+        this.spriteSheet,
+        this.cloudX, this.cloudY, this.cloudWidth, this.cloudHeight,
+        cloud.x, cloud.y, cloud.width, cloud.height
+      );
+    }
+  }
+  
   private drawGround(): void {
-    const groundY = this.groundY;
+    // Draw ground with continuous scrolling
+    // First part: Main ground
+    this.ctx.drawImage(
+      this.spriteSheet,
+      this.groundX, this.groundSpriteY, this.groundWidth, this.groundHeight,
+      -this.groundOffset, this.groundY - 4, this.groundWidth, this.groundHeight
+    );
     
-    // Draw ground line
-    this.ctx.beginPath();
-    this.ctx.moveTo(0, groundY);
-    this.ctx.lineTo(this.canvas.width, groundY);
-    this.ctx.lineWidth = 2;
-    this.ctx.strokeStyle = '#000000';
-    this.ctx.stroke();
+    // Second part: Extension to make it seamless
+    if (this.groundOffset > 0) {
+      this.ctx.drawImage(
+        this.spriteSheet,
+        this.groundX, this.groundSpriteY, this.groundWidth, this.groundHeight,
+        this.groundWidth - this.groundOffset, this.groundY - 4, this.groundWidth, this.groundHeight
+      );
+    }
   }
   
   private drawDino(): void {
     // Determine which sprite to use based on dino state
     let spriteX = this.dinoJumpingX;
+    let spriteWidth = this.dinoWidth;
+    let spriteHeight = this.dinoHeight;
     
-    if (!this.dino.jumping) {
-      // Alternate running frames every few frames for animation
+    if (this.dino.jumping) {
+      // Use jumping sprite
+      spriteX = this.dinoJumpingX;
+      spriteWidth = this.dinoWidth;
+      spriteHeight = this.dinoHeight;
+    } else if (this.dino.crouching) {
+      // Use crouching sprite
+      if (this.frameCount % 10 < 5) {
+        spriteX = this.dinoCrouching1X;
+      } else {
+        spriteX = this.dinoCrouching2X;
+      }
+      spriteWidth = this.dinoCrouchWidth;
+      spriteHeight = this.dinoCrouchHeight;
+    } else {
+      // Use running sprite
       if (this.frameCount % 10 < 5) {
         spriteX = this.dinoRunning1X;
       } else {
         spriteX = this.dinoRunning2X;
       }
+      spriteWidth = this.dinoWidth;
+      spriteHeight = this.dinoHeight;
     }
     
     // Draw dino sprite
+    // When crouching, maintain the dinosaur's visual position at ground level
+    // This prevents the visual appearance of sinking into the ground
     this.ctx.drawImage(
       this.spriteSheet,
-      spriteX, 0, this.dinoWidth, this.dinoHeight,
+      spriteX, 0, spriteWidth, spriteHeight,
       this.dino.x, this.dino.y, this.dino.width, this.dino.height
     );
     
     // Draw weapon on dino if has weapon
     if (this.dino.hasWeapon) {
       this.ctx.fillStyle = '#000000';
+      const weaponY = this.dino.crouching ? 
+        this.dino.y + this.dino.height / 4 : 
+        this.dino.y + this.dino.height / 3;
+      
       this.ctx.fillRect(
         this.dino.x + this.dino.width - 15,
-        this.dino.y + this.dino.height / 3,
+        weaponY,
         20,
         10
       );
     }
+    
+    // Debug visualization - uncomment for debugging hitbox
+    // this.ctx.strokeStyle = 'red';
+    // this.ctx.strokeRect(this.dino.x, this.dino.y, this.dino.width, this.dino.height);
   }
   
   private drawObstacles(): void {
@@ -580,23 +776,49 @@ export class DinoGame {
   }
   
   private drawGameOver(): void {
-    // Draw semi-transparent overlay
-    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    if (!this.state.gameOver) return;
+    
+    // Clear the canvas overlay added by GameCanvas component
+    
+    // Draw semi-transparent overlay for better text visibility
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     
-    // Draw game over text
-    this.ctx.fillStyle = '#FFFFFF';
-    this.ctx.font = '36px Arial';
-    this.ctx.textAlign = 'center';
-    this.ctx.fillText('GAME OVER', this.canvas.width / 2, this.canvas.height / 2 - 40);
+    // Draw game over text using sprite image
+    // Use the GAME OVER text from sprite.png
+    this.ctx.drawImage(
+      this.spriteSheet,
+      this.gameOverX, this.gameOverY, this.gameOverWidth, this.gameOverHeight,
+      (this.canvas.width - this.gameOverWidth) / 2, this.canvas.height / 2 - 50, 
+      this.gameOverWidth, this.gameOverHeight
+    );
     
-    // Draw score
-    this.ctx.font = '24px Arial';
-    this.ctx.fillText(`Score: ${this.state.score}`, this.canvas.width / 2, this.canvas.height / 2);
+    // Draw score using pixel numbers from sprite
+    const scoreText = this.state.score.toString();
+    const scoreWidth = scoreText.length * (this.numberWidth + 2); // 2px spacing between digits
+    let digitX = (this.canvas.width - scoreWidth) / 2;
     
-    // Draw restart instructions
-    this.ctx.font = '20px Arial';
-    this.ctx.fillText('Press SPACE to restart', this.canvas.width / 2, this.canvas.height / 2 + 40);
+    for (let i = 0; i < scoreText.length; i++) {
+      const digit = parseInt(scoreText[i]);
+      // Calculate position in sprite sheet for this digit
+      const digitSpriteX = this.numbersX + digit * this.numberWidth;
+      
+      this.ctx.drawImage(
+        this.spriteSheet,
+        digitSpriteX, this.numbersY, this.numberWidth, this.numberHeight,
+        digitX, this.canvas.height / 2, this.numberWidth, this.numberHeight
+      );
+      
+      digitX += this.numberWidth + 2; // Move to next digit position with spacing
+    }
+    
+    // Draw refresh icon
+    this.ctx.drawImage(
+      this.spriteSheet,
+      this.refreshIconX, this.refreshIconY, this.refreshIconWidth, this.refreshIconHeight,
+      (this.canvas.width - this.refreshIconWidth) / 2, this.canvas.height / 2 + 30,
+      this.refreshIconWidth, this.refreshIconHeight
+    );
     
     // Reset text alignment
     this.ctx.textAlign = 'left';
@@ -621,5 +843,9 @@ export class DinoGame {
   
   public hasWeapon(): boolean {
     return this.dino.hasWeapon;
+  }
+  
+  public isCrouching(): boolean {
+    return this.dino.crouching;
   }
 } 
