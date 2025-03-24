@@ -69,30 +69,36 @@
   }
   
   .page-header {
-    @apply animate-fade-up opacity-0 animation-delay-[100ms] animation-fill-mode-forwards text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl;
+    @apply animate-fade-up opacity-0 text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl;
+    animation-delay: 100ms;
+    animation-fill-mode: forwards;
   }
   
   .page-subtitle {
-    @apply animate-fade-up opacity-0 animation-delay-[200ms] animation-fill-mode-forwards mt-4 max-w-3xl text-lg text-muted-foreground;
+    @apply animate-fade-up opacity-0 mt-4 max-w-3xl text-lg text-muted-foreground;
+    animation-delay: 200ms;
+    animation-fill-mode: forwards;
   }
 }
 
-.animation-delay-[100ms] {
-  animation-delay: 100ms;
-}
-
-.animation-delay-[200ms] {
-  animation-delay: 200ms;
-}
-
-.animation-delay-[300ms] {
-  animation-delay: 300ms;
-}
-
-.animation-delay-[400ms] {
-  animation-delay: 400ms;
-}
-
-.animation-fill-mode-forwards {
-  animation-fill-mode: forwards;
+@layer utilities {
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+  
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .fill-forwards {
+    animation-fill-mode: forwards;
+  }
 }
