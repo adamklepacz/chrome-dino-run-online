@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import GamePlaceholder from '@/components/GamePlaceholder';
@@ -35,7 +34,15 @@ const Index = () => {
           <p className="text-lg text-center mb-8 text-muted-foreground">
             Help your friendly dinosaur leap over obstacles and collect points to beat your high score! Inspired by the popular Chrome Dino game, our browser-based adventure promises quick and exciting fun—no installation needed. All you need is a web browser and quick reflexes to immerse yourself in this prehistoric world.
           </p>
-          <GamePlaceholder title="Jumping Dino" />
+          <div className="mb-8 flex justify-center">
+            <Link 
+              to="/dino-game" 
+              className="bg-primary text-primary-foreground hover:bg-primary/90 py-3 px-6 rounded-lg text-lg font-medium transition-colors"
+            >
+              Play Dino Game Now →
+            </Link>
+          </div>
+          <GamePlaceholder title="Game Preview" />
           <div className="mt-6 text-center">
             <Link to="/faq" className="text-primary hover:text-primary/80 transition-colors">
               Have questions? Check our FAQ →

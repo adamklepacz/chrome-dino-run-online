@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -8,6 +7,7 @@ import Index from "./pages/Index";
 import GamePage from "./pages/GamePage";
 import Faq from "./pages/Faq";
 import NotFound from "./pages/NotFound";
+import DinoGame from "./pages/DinoGame";
 
 const queryClient = new QueryClient();
 
@@ -18,10 +18,10 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/gra-logiczna" element={<GamePage />} />
-          <Route path="/gra-zrecznosciowa" element={<GamePage />} />
-          <Route path="/gra-strategiczna" element={<GamePage />} />
+          <Route path="/" element={<DinoGame />} />
+          <Route path="/dino-adventure" element={<DinoGame />} />
+          <Route path="/dino-jump" element={<DinoGame />} />
+          <Route path="/dino-run" element={<DinoGame />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

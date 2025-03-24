@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -19,6 +18,9 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
         <nav className="hidden md:flex gap-6">
           <Link to="/" className="text-foreground/80 hover:text-foreground transition-colors">
             Home
+          </Link>
+          <Link to="/dino-game" className="text-foreground/80 hover:text-foreground transition-colors font-medium text-primary">
+            Dino Game
           </Link>
           <Link to="/gra-logiczna" className="text-foreground/80 hover:text-foreground transition-colors">
             Logical Game
