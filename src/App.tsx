@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound";
 import DinoGame from "./pages/dino-game";
 import GamePage from "./pages/GamePage";
 import Index from "./pages/Index";
-
+import History from "./pages/history";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -19,6 +19,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/history" element={<History />} />
           {/* Dino game variants - ranked by search volume */}
           <Route path="/chrome-dino" element={<DinoGame />} /> {/* 10k-100k */}
           <Route path="/chromedino" element={<DinoGame />} /> {/* 10k-100k */}
@@ -32,13 +33,12 @@ const App = () => (
           <Route path="/google-game-dino" element={<DinoGame />} /> {/* 100-1k */}
           <Route path="/t-rex-chrome-dino-game" element={<DinoGame />} /> {/* 10-100 */}
           <Route path="/dino-run-game" element={<DinoGame />} /> {/* 10-100 */}
-          <Route path="/t-rex-chrome-dino" element={<DinoGame />} /> {/* 10-100 */}
           
           {/* Game categories */}
-          <Route path="/free-online-game" element={<GamePage />} /> {/* 100-1k */}
+          {/* <Route path="/free-online-game" element={<GamePage />} /> 
           <Route path="/free-online-games" element={<GamePage />} />
-          <Route path="/simple-web-game" element={<GamePage />} /> {/* 10-100 */}
-          <Route path="/simple-web-games" element={<GamePage />} />
+          <Route path="/simple-web-game" element={<GamePage />} /> 
+          <Route path="/simple-web-games" element={<GamePage />} /> */}
           
           <Route path="/faq" element={<Faq />} />
           <Route path="*" element={<NotFound />} />
