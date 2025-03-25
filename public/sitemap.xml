@@ -1,87 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Home page -->
   <url>
     <loc>https://dinorunonline.com/</loc>
-    <lastmod>2023-09-01</lastmod>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- High volume keywords (10k-100k) -->
+  <url>
+    <loc>https://dinorunonline.com/chrome-dino</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/chromedino</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
   <url>
     <loc>https://dinorunonline.com/dino-game</loc>
-    <lastmod>2023-09-01</lastmod>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+  
+  <!-- Medium volume keywords (1k-10k) -->
   <url>
     <loc>https://dinorunonline.com/dino-run</loc>
-    <lastmod>2023-09-01</lastmod>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dinorunonline.com/dino-adventure</loc>
-    <lastmod>2023-09-01</lastmod>
+    <loc>https://dinorunonline.com/google-dino</loc>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://dinorunonline.com/dino-jump</loc>
-    <lastmod>2023-09-01</lastmod>
+    <loc>https://dinorunonline.com/run-dino-run</loc>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Lower volume keywords (100-1k) -->
+  <url>
+    <loc>https://dinorunonline.com/t-rex-chrome</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/offline-dinosaurus</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dinorunonline.com/chrome-dino-game</loc>
-    <lastmod>2023-09-01</lastmod>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dinorunonline.com/t-rex-game</loc>
-    <lastmod>2023-09-01</lastmod>
+    <loc>https://dinorunonline.com/free-online-game</loc>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://dinorunonline.com/dinosaur-game</loc>
-    <lastmod>2023-09-01</lastmod>
+    <loc>https://dinorunonline.com/google-game-dino</loc>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Lowest volume keywords (10-100) -->
+  <url>
+    <loc>https://dinorunonline.com/t-rex-chrome-dino-game</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/dino-run-game</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/t-rex-chrome-dino</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/simple-web-game</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Game categories -->
+  <url>
+    <loc>https://dinorunonline.com/free-online-games</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://dinorunonline.com/simple-web-games</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://dinorunonline.com/arcade-games</loc>
-    <lastmod>2023-09-01</lastmod>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dinorunonline.com/logic-games</loc>
-    <lastmod>2023-09-01</lastmod>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dinorunonline.com/strategy-games</loc>
-    <lastmod>2023-09-01</lastmod>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dinorunonline.com/free-online-games</loc>
-    <lastmod>2023-09-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://dinorunonline.com/browser-games</loc>
-    <lastmod>2023-09-01</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://dinorunonline.com/faq</loc>
-    <lastmod>2023-09-01</lastmod>
+    <lastmod>2024-03-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  
+  <!-- Other pages -->
+  <url>
+    <loc>https://dinorunonline.com/faq</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

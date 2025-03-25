@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Faq from "./pages/Faq";
 import NotFound from "./pages/NotFound";
-import DinoGame from "./pages/DinoGame";
+import DinoGame from "./pages/dino-game";
 import GamePage from "./pages/GamePage";
 import Index from "./pages/Index";
 
@@ -19,21 +19,26 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* Dino game variants */}
-          <Route path="/dino-game" element={<DinoGame />} />
-          <Route path="/dino-run" element={<DinoGame />} />
-          <Route path="/dino-adventure" element={<DinoGame />} />
-          <Route path="/dino-jump" element={<DinoGame />} />
-          <Route path="/chrome-dino-game" element={<DinoGame />} />
-          <Route path="/t-rex-game" element={<DinoGame />} />
-          <Route path="/dinosaur-game" element={<DinoGame />} />
+          {/* Dino game variants - ranked by search volume */}
+          <Route path="/chrome-dino" element={<DinoGame />} /> {/* 10k-100k */}
+          <Route path="/chromedino" element={<DinoGame />} /> {/* 10k-100k */}
+          <Route path="/dino-game" element={<DinoGame />} /> {/* 10k-100k */}
+          <Route path="/dino-run" element={<DinoGame />} /> {/* 1k-10k */}
+          <Route path="/google-dino" element={<DinoGame />} /> {/* 1k-10k */}
+          <Route path="/run-dino-run" element={<DinoGame />} /> {/* 1k-10k */}
+          <Route path="/t-rex-chrome" element={<DinoGame />} /> {/* 100-1k */}
+          <Route path="/offline-dinosaurus" element={<DinoGame />} /> {/* 100-1k */}
+          <Route path="/chrome-dino-game" element={<DinoGame />} /> {/* 100-1k */}
+          <Route path="/google-game-dino" element={<DinoGame />} /> {/* 100-1k */}
+          <Route path="/t-rex-chrome-dino-game" element={<DinoGame />} /> {/* 10-100 */}
+          <Route path="/dino-run-game" element={<DinoGame />} /> {/* 10-100 */}
+          <Route path="/t-rex-chrome-dino" element={<DinoGame />} /> {/* 10-100 */}
           
           {/* Game categories */}
-          <Route path="/arcade-games" element={<GamePage />} />
-          <Route path="/logic-games" element={<GamePage />} />
-          <Route path="/strategy-games" element={<GamePage />} />
+          <Route path="/free-online-game" element={<GamePage />} /> {/* 100-1k */}
           <Route path="/free-online-games" element={<GamePage />} />
-          <Route path="/browser-games" element={<GamePage />} />
+          <Route path="/simple-web-game" element={<GamePage />} /> {/* 10-100 */}
+          <Route path="/simple-web-games" element={<GamePage />} />
           
           <Route path="/faq" element={<Faq />} />
           <Route path="*" element={<NotFound />} />

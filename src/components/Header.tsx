@@ -19,16 +19,16 @@ const Header: React.FC<HeaderProps> = ({ className }) => {
           <Link to="/" className="text-foreground/80 hover:text-foreground transition-colors">
             Home
           </Link>
-          <Link to="/dino-game" className="text-foreground/80 hover:text-foreground transition-colors font-medium text-primary">
-            Dino Game
-          </Link>
-          <Link to="/chrome-dino-game" className="text-foreground/80 hover:text-foreground transition-colors">
+          <Link to="/chrome-dino" className="text-foreground/80 hover:text-foreground transition-colors font-medium text-primary">
             Chrome Dino
           </Link>
-          <Link to="/t-rex-game" className="text-foreground/80 hover:text-foreground transition-colors">
-            T-Rex Game
+          <Link to="/dino-game" className="text-foreground/80 hover:text-foreground transition-colors">
+            Dino Game
           </Link>
-          <Link to="/free-online-games" className="text-foreground/80 hover:text-foreground transition-colors">
+          <Link to="/dino-run" className="text-foreground/80 hover:text-foreground transition-colors">
+            Dino Run
+          </Link>
+          <Link to="/free-online-game" className="text-foreground/80 hover:text-foreground transition-colors">
             Free Games
           </Link>
           <Link to="/faq" className="text-foreground/80 hover:text-foreground transition-colors">

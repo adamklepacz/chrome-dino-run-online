@@ -21,11 +21,16 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           </div>
           
           <div>
-            <h3 className="text-lg font-medium text-foreground">Navigation</h3>
+            <h3 className="text-lg font-medium text-foreground">Main Games</h3>
             <ul className="mt-2 space-y-2">
               <li>
-                <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Home
+                <Link to="/chrome-dino" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Chrome Dino
+                </Link>
+              </li>
+              <li>
+                <Link to="/chromedino" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  ChromeDino
                 </Link>
               </li>
               <li>
@@ -34,18 +39,60 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 </Link>
               </li>
               <li>
+                <Link to="/dino-run" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Dino Run
+                </Link>
+              </li>
+              <li>
+                <Link to="/google-dino" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Google Dino
+                </Link>
+              </li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="text-lg font-medium text-foreground">More Variants</h3>
+            <ul className="mt-2 space-y-2">
+              <li>
+                <Link to="/run-dino-run" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Run Dino Run
+                </Link>
+              </li>
+              <li>
+                <Link to="/t-rex-chrome" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  T-Rex Chrome
+                </Link>
+              </li>
+              <li>
+                <Link to="/offline-dinosaurus" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Offline Dinosaurus
+                </Link>
+              </li>
+              <li>
                 <Link to="/chrome-dino-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Chrome Dino
+                  Chrome Dino Game
+                </Link>
+              </li>
+            </ul>
+          </div>
+              
+          <div>
+            <h3 className="text-lg font-medium text-foreground">Pages</h3>
+            <ul className="mt-2 space-y-2">
+              <li>
+                <Link to="/" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Home
                 </Link>
               </li>
               <li>
-                <Link to="/t-rex-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  T-Rex Game
+                <Link to="/free-online-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Free Online Game
                 </Link>
               </li>
               <li>
-                <Link to="/free-online-games" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                  Free Games
+                <Link to="/simple-web-game" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Simple Web Game
                 </Link>
               </li>
               <li>
@@ -54,16 +101,6 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                 </Link>
               </li>
             </ul>
-          </div>
-              
-          <div>
-            <h3 className="text-lg font-medium text-foreground">Contact</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Contact us if you have questions or suggestions.
-            </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              <a href="mailto:adamklepacz92@gmail.com" className="hover:text-foreground transition-colors">adamklepacz92@gmail.com</a>
-            </p>
           </div>
         </div>
         

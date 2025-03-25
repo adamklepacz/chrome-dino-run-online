@@ -66,14 +66,303 @@ function getGameData(path: string) {
       keywords: ['free online games', 'browser games', 'no download games', 'instant play games'],
     },
     relatedGames: [
-      { path: '/dino-game', title: 'Dino Game', description: 'Classic T-Rex runner' },
-      { path: '/chrome-dino-game', title: 'Chrome Dino Game', description: 'The famous offline game' },
-      { path: '/t-rex-game', title: 'T-Rex Game', description: 'Jump and dodge obstacles' }
+      { path: '/chrome-dino', title: 'Chrome Dino', description: 'Classic T-Rex runner' },
+      { path: '/dino-game', title: 'Dino Game', description: 'Jump over obstacles' },
+      { path: '/dino-run', title: 'Dino Run', description: 'Endless runner adventure' }
     ]
   };
   
   // Data for specific game pages
   const gamesData: Record<string, typeof defaultData> = {
+    'chrome-dino': {
+      header: 'Chrome Dino Game Online',
+      subheader: 'Play the famous T-Rex runner from Chrome browser',
+      gameTitle: 'Chrome Dino',
+      seo: {
+        title: 'Chrome Dino - Play the Original Chrome Dinosaur Game Online',
+        description: 'Play the Chrome Dino game online anytime without losing internet connection. Jump over cacti, dodge pterodactyls in this classic T-Rex runner game.',
+        keywords: ['chrome dino', 'chrome dinosaur game', 't-rex runner', 'dino game', 'chrome offline game'],
+        canonicalUrl: 'https://dinorunonline.com/chrome-dino',
+      },
+      seoContent: {
+        title: 'Chrome Dino Game',
+        subtitle: 'The famous offline dinosaur game now available online',
+        content: `The Chrome Dino game (also known as the T-Rex Runner) is Google Chrome's hidden easter egg that appears when you have no internet connection. Our version brings this beloved game online, letting you play anytime - not just when your internet is down!
+
+Jump over cacti, dodge flying pterodactyls, and try to survive as long as possible in this classic endless runner game. The longer you play, the faster the game becomes, challenging your reflexes and timing.
+
+Play Chrome Dino right in your browser without any downloads or plugins. Works perfectly on desktop, tablet, and mobile devices.`,
+        keywords: ['chrome dino', 't-rex runner', 'dinosaur game', 'chrome browser game', 'offline dinosaur'],
+      },
+      relatedGames: [
+        { path: '/chromedino', title: 'ChromeDino', description: 'Alternative version' },
+        { path: '/dino-game', title: 'Dino Game', description: 'Classic game variant' },
+        { path: '/t-rex-chrome', title: 'T-Rex Chrome', description: 'Dinosaur runner game' }
+      ]
+    },
+    'chromedino': {
+      header: 'ChromeDino - T-Rex Runner Game',
+      subheader: 'Play the famous dinosaur game from Chrome browser',
+      gameTitle: 'ChromeDino',
+      seo: {
+        title: 'ChromeDino - Play the T-Rex Runner Game Online',
+        description: 'Play ChromeDino, the popular dinosaur runner game from Chrome browser. Jump over cacti, dodge obstacles, and set new high scores!',
+        keywords: ['chromedino', 'chrome dino game', 't-rex runner', 'dinosaur game', 'chrome offline game'],
+        canonicalUrl: 'https://dinorunonline.com/chromedino',
+      },
+      seoContent: {
+        title: 'ChromeDino Game Online',
+        subtitle: 'The popular T-Rex runner game from Chrome browser',
+        content: `ChromeDino brings the beloved dinosaur runner game from Google Chrome to your browser, available anytime whether you're online or offline. Originally designed as an easter egg for Chrome's offline screen, this addictive game has gained worldwide popularity.
+
+Help your pixelated T-Rex jump over cacti and dodge pterodactyls in this endless runner adventure. The game progressively increases in speed as you achieve higher scores, making each run a unique challenge that tests your reflexes.
+
+No downloads needed - simply load the page and start playing on any device with a browser.`,
+        keywords: ['chromedino', 'dino runner', 't-rex game', 'chrome dinosaur', 'jumping dinosaur'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Original dinosaur game' },
+        { path: '/dino-game', title: 'Dino Game', description: 'Classic jumping game' },
+        { path: '/chrome-dino-game', title: 'Chrome Dino Game', description: 'Full game experience' }
+      ]
+    },
+    'dino-game': {
+      header: 'Dino Game - T-Rex Runner Adventure',
+      subheader: 'Jump, duck, and dodge obstacles in this classic game',
+      gameTitle: 'Dino Game',
+      seo: {
+        title: 'Dino Game - Play the Classic T-Rex Runner Online',
+        description: 'Play the Dino Game online for free. Jump over cacti, dodge obstacles, and set new high scores in this classic dinosaur running adventure!',
+        keywords: ['dino game', 'dinosaur game', 't-rex runner', 'chrome dino', 'jumping dinosaur'],
+        canonicalUrl: 'https://dinorunonline.com/dino-game',
+      },
+      seoContent: {
+        title: 'Dino Game Online',
+        subtitle: 'The classic dinosaur runner game available anytime',
+        content: `Dino Game brings the beloved T-Rex runner to life online! This simple yet addictive game features a pixelated dinosaur that must jump over cacti and duck under flying obstacles to survive in a prehistoric landscape.
+
+What started as a hidden feature in the Chrome browser has become a worldwide gaming phenomenon. Our version stays true to the original while adding enhanced graphics and features that make the game even more enjoyable.
+
+Play Dino Game on any device with a web browser - no downloads required. Simply press space to jump (or tap on mobile devices) and see how far you can go!`,
+        keywords: ['dino game', 't-rex runner', 'jumping dinosaur', 'chrome offline game', 'prehistoric runner'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Original browser game' },
+        { path: '/dino-run', title: 'Dino Run', description: 'Endless runner version' },
+        { path: '/t-rex-chrome', title: 'T-Rex Chrome', description: 'Classic dinosaur adventure' }
+      ]
+    },
+    'dino-run': {
+      header: 'Dino Run - Endless Runner Game',
+      subheader: 'Help your dinosaur run, jump, and survive as long as possible',
+      gameTitle: 'Dino Run',
+      seo: {
+        title: 'Dino Run - Play the Classic Dinosaur Running Game Online',
+        description: 'Play Dino Run online, the famous endless runner game featuring a jumping T-Rex. Avoid obstacles and set high scores in this addictive game!',
+        keywords: ['dino run', 'dinosaur game', 't-rex runner', 'chrome dino', 'jumping dinosaur'],
+        canonicalUrl: 'https://dinorunonline.com/dino-run',
+      },
+      seoContent: {
+        title: 'Dino Run Online',
+        subtitle: 'The addictive T-Rex jumping game that never ends',
+        content: `Dino Run brings the popular dinosaur endless runner game to your browser! Control a prehistoric T-Rex as it runs through a barren landscape, jumping over cacti and dodging flying pterodactyls.
+
+This deceptively simple game becomes increasingly challenging as your score grows, with faster obstacles and changing day/night cycles that test your reflexes and concentration. Originally an offline easter egg in Chrome, our version lets you play anytime.
+
+Dino Run works perfectly on all devices including desktops, laptops, tablets, and mobile phones. No download required - just load the page and start running!`,
+        keywords: ['dino run', 'dinosaur runner', 't-rex game', 'endless runner', 'jumping dino'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Original browser game' },
+        { path: '/dino-game', title: 'Dino Game', description: 'Classic dinosaur game' },
+        { path: '/run-dino-run', title: 'Run Dino Run', description: 'Extended runner game' }
+      ]
+    },
+    'google-dino': {
+      header: 'Google Dino Game Online',
+      subheader: 'Play the famous dinosaur game from Google Chrome',
+      gameTitle: 'Google Dino',
+      seo: {
+        title: 'Google Dino - Play the Chrome T-Rex Game Online',
+        description: 'Play the Google Dino game online anytime. No internet disconnection needed to enjoy this classic Chrome dinosaur runner game!',
+        keywords: ['google dino', 'chrome dinosaur', 't-rex runner', 'dino game', 'chrome offline game'],
+        canonicalUrl: 'https://dinorunonline.com/google-dino',
+      },
+      seoContent: {
+        title: 'Google Dino Game',
+        subtitle: 'The famous Chrome browser dinosaur game',
+        content: `The Google Dino game (also known as the T-Rex Runner or the No Internet Game) is a hidden game in the Chrome browser that appears when you have no internet connection. Now you can play this addictive dinosaur runner anytime!
+
+Our online version brings all the fun of the original Google Chrome dinosaur game, letting you jump over cacti, dodge pterodactyls, and achieve high scores in this endless runner adventure.
+
+Play Google Dino on any device - no downloads or Chrome browser required. Just load the page and start jumping!`,
+        keywords: ['google dino', 'chrome dinosaur', 't-rex runner', 'no internet game', 'browser game'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Original T-Rex game' },
+        { path: '/dino-game', title: 'Dino Game', description: 'Classic dinosaur game' },
+        { path: '/google-game-dino', title: 'Google Game Dino', description: 'Alternative version' }
+      ]
+    },
+    'run-dino-run': {
+      header: 'Run Dino Run - T-Rex Runner Game',
+      subheader: 'The classic dinosaur endless runner game',
+      gameTitle: 'Run Dino Run',
+      seo: {
+        title: 'Run Dino Run - Play the Classic T-Rex Runner Game Online',
+        description: 'Play Run Dino Run online, the exciting dinosaur runner game. Jump over obstacles, dodge pterodactyls, and set new high scores!',
+        keywords: ['run dino run', 'dinosaur game', 't-rex runner', 'chrome dino', 'endless runner'],
+        canonicalUrl: 'https://dinorunonline.com/run-dino-run',
+      },
+      seoContent: {
+        title: 'Run Dino Run Game',
+        subtitle: 'The addictive dinosaur endless runner',
+        content: `Run Dino Run brings the classic Chrome dinosaur game to life in your browser! Control a prehistoric T-Rex as it runs through a desert landscape, jumping over cacti and avoiding flying obstacles.
+
+This exciting endless runner gets progressively faster and more challenging as your score increases, testing your reflexes and concentration. What started as a simple offline game in Chrome has become a worldwide phenomenon.
+
+Run Dino Run works on all devices including desktop computers, laptops, tablets, and smartphones. No download necessary - just open the page and start running!`,
+        keywords: ['run dino run', 't-rex jumper', 'dinosaur runner', 'chrome offline game', 'endless runner'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Original browser game' },
+        { path: '/dino-run', title: 'Dino Run', description: 'Classic endless runner' },
+        { path: '/dino-game', title: 'Dino Game', description: 'T-Rex jumping game' }
+      ]
+    },
+    't-rex-chrome': {
+      header: 'T-Rex Chrome - Dinosaur Runner Game',
+      subheader: 'The classic Chrome browser dinosaur game',
+      gameTitle: 'T-Rex Chrome',
+      seo: {
+        title: 'T-Rex Chrome - Play the Dinosaur Runner Game Online',
+        description: 'Play T-Rex Chrome, the famous dinosaur game from Chrome browser. Jump over cacti and dodge flying obstacles in this classic runner!',
+        keywords: ['t-rex chrome', 'chrome dinosaur', 'dino game', 'chrome runner', 'jumping t-rex'],
+        canonicalUrl: 'https://dinorunonline.com/t-rex-chrome',
+      },
+      seoContent: {
+        title: 'T-Rex Chrome Game',
+        subtitle: 'The iconic dinosaur runner from Chrome browser',
+        content: `T-Rex Chrome brings the beloved dinosaur runner game from Google Chrome to your browser, available anytime without needing an internet disconnection. This iconic game features a pixelated T-Rex that must jump over cacti and dodge pterodactyls in an endless desert landscape.
+
+Originally created as an easter egg for Chrome's offline page, this simple yet addictive game has captured the hearts of millions of players worldwide. Our version stays true to the original while adding enhanced features.
+
+Play T-Rex Chrome on any device with a web browser - no downloads needed. Just press space (or tap on mobile) and see how far your dinosaur can run!`,
+        keywords: ['t-rex chrome', 'chrome dinosaur', 'dino runner', 'jumping t-rex', 'chrome offline game'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Original browser game' },
+        { path: '/t-rex-chrome-dino', title: 'T-Rex Chrome Dino', description: 'Extended version' },
+        { path: '/dino-game', title: 'Dino Game', description: 'Classic dinosaur game' }
+      ]
+    },
+    'offline-dinosaurus': {
+      header: 'Offline Dinosaurus Game',
+      subheader: 'Play the famous Chrome offline dinosaur game anytime',
+      gameTitle: 'Offline Dinosaurus',
+      seo: {
+        title: 'Offline Dinosaurus - Play Chrome\'s Famous No-Internet Game Online',
+        description: 'Play the Offline Dinosaurus game from Chrome browser anytime, without losing internet connection. Jump and dodge in this classic T-Rex runner!',
+        keywords: ['offline dinosaurus', 'chrome dinosaur', 'no internet game', 'dinosaur runner', 't-rex game'],
+        canonicalUrl: 'https://dinorunonline.com/offline-dinosaurus',
+      },
+      seoContent: {
+        title: 'Offline Dinosaurus Game',
+        subtitle: 'Chrome\'s hidden dinosaur game now available online',
+        content: `Offline Dinosaurus brings Chrome's famous no-internet dinosaur game online! Originally appearing only when your internet connection fails, our version lets you play this addictive runner game anytime.
+
+Control the pixelated T-Rex dinosaur as it runs through a desert landscape, jumping over cacti and ducking under flying pterodactyls. The game gradually increases in speed as your score grows, providing an ever-increasing challenge.
+
+Play Offline Dinosaurus on desktop or mobile devices without needing to disconnect from the internet. No downloads required - just load the page and start jumping!`,
+        keywords: ['offline dinosaurus', 'no internet game', 'chrome dinosaur', 't-rex runner', 'jumping dinosaur'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Original browser game' },
+        { path: '/dino-game', title: 'Dino Game', description: 'Classic dinosaur game' },
+        { path: '/t-rex-chrome', title: 'T-Rex Chrome', description: 'Chrome browser game' }
+      ]
+    },
+    // Additional pages for other keywords
+    'chrome-dino-game': {
+      header: 'Chrome Dino Game - T-Rex Runner Adventure',
+      subheader: 'Play the famous dinosaur game from Chrome browser',
+      gameTitle: 'Chrome Dino Game',
+      seo: {
+        title: 'Chrome Dino Game - Play the Classic T-Rex Runner Online',
+        description: 'Play the Chrome Dino Game online for free. Jump over cacti and dodge pterodactyls in this classic dinosaur runner from Google Chrome!',
+        keywords: ['chrome dino game', 't-rex runner', 'dinosaur game', 'offline chrome game', 'jumping t-rex'],
+        canonicalUrl: 'https://dinorunonline.com/chrome-dino-game',
+      },
+      seoContent: {
+        title: 'Chrome Dino Game Online',
+        subtitle: 'The classic T-Rex runner from Chrome browser',
+        content: `Chrome Dino Game brings Google Chrome's famous dinosaur runner online! This beloved game, originally appearing only when you lost internet connection, can now be played anytime.
+
+Control your pixelated T-Rex as it runs through a desert landscape, jumping over cacti and dodging pterodactyls. The game gets progressively faster and more challenging as your score increases, testing your reflexes and timing.
+
+Our version of Chrome Dino Game works flawlessly on all devices from desktops to mobile phones. No downloads needed - just load the page and start running!`,
+        keywords: ['chrome dino game', 't-rex runner', 'dinosaur game', 'offline chrome game', 'jumping dinosaur'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Original browser game' },
+        { path: '/dino-game', title: 'Dino Game', description: 'Classic dinosaur game' },
+        { path: '/t-rex-chrome-dino-game', title: 'T-Rex Chrome Dino Game', description: 'Extended version' }
+      ]
+    },
+    // Continue with other keyword variations...
+    'free-online-game': {
+      header: 'Free Online Game - Play Without Download',
+      subheader: 'Enjoy our collection of browser games that require no installation or download',
+      gameTitle: 'Free Online Game',
+      seo: {
+        title: 'Free Online Game - Play Browser Games Without Download',
+        description: 'Play our selection of free online games directly in your browser. No downloads, no installations - just pure gaming fun for everyone!',
+        keywords: ['free online game', 'browser games', 'no download games', 'play for free', 'internet games', 'online gaming'],
+        canonicalUrl: 'https://dinorunonline.com/free-online-game',
+      },
+      seoContent: {
+        title: 'Free Online Game - Instant Entertainment',
+        subtitle: 'Play amazing browser games without downloading anything',
+        content: `Our free online game collection brings you immediate entertainment without the hassle of downloads, registrations, or hidden costs. Jump straight into the action with our selection of browser-based games that load instantly and run smoothly on any device.
+
+The crown jewel of our collection is the Chrome Dino Game - the famous T-Rex runner that's usually only available when your internet connection is down. Now you can play this addictive game and many others anytime, directly in your browser!
+
+From casual mini-games to more challenging adventures, our free online game selection has something for everyone. All games are optimized for both desktop and mobile play, ensuring a great gaming experience whether you're at home or on the go.`,
+        keywords: ['free online game', 'browser games', 'no download games', 'play for free', 'instant games', 'chrome dino'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Classic T-Rex runner' },
+        { path: '/dino-game', title: 'Dino Game', description: 'Dinosaur jumping game' },
+        { path: '/simple-web-game', title: 'Simple Web Game', description: 'Easy to play browser game' }
+      ]
+    },
+    'simple-web-game': {
+      header: 'Simple Web Game - Easy to Learn, Fun to Master',
+      subheader: 'Play straightforward browser games that are perfect for quick gaming sessions',
+      gameTitle: 'Simple Web Game',
+      seo: {
+        title: 'Simple Web Game - Easy-to-Play Browser Games',
+        description: 'Enjoy our simple web games that are easy to learn but challenging to master. Perfect for quick gaming sessions in your browser!',
+        keywords: ['simple web game', 'easy browser games', 'quick online games', 'casual gaming', 'no download games'],
+        canonicalUrl: 'https://dinorunonline.com/simple-web-game',
+      },
+      seoContent: {
+        title: 'Simple Web Game - Quick Entertainment',
+        subtitle: 'Easy-to-learn games that provide hours of fun',
+        content: `Our simple web games offer the perfect balance between accessibility and challenge. These browser-based games can be learned in seconds but provide hours of entertainment as you try to beat your high scores and master the mechanics.
+
+The Chrome Dino Game is a perfect example of a simple web game - just press space to jump over cacti and duck under pterodactyls, but mastering the timing and reflexes to achieve a high score takes practice and skill. This combination of simplicity and depth is what makes web games so addictive.
+
+Our collection of simple web games works on any device with a browser, with no downloads or installations required. These games are perfect for quick gaming sessions during breaks, commutes, or whenever you have a few minutes to spare and need some quick entertainment!`,
+        keywords: ['simple web game', 'easy browser games', 'quick online games', 'casual gaming', 'no download games'],
+      },
+      relatedGames: [
+        { path: '/chrome-dino', title: 'Chrome Dino', description: 'Classic T-Rex runner' },
+        { path: '/dino-game', title: 'Dino Game', description: 'Dinosaur jumping game' },
+        { path: '/free-online-game', title: 'Free Online Game', description: 'No download required' }
+      ]
+    },
+    // Remaining categories remain largely unchanged
     'logic-games': {
       header: 'Logic Games Online',
       subheader: 'Solve puzzles and exercise your mind with our collection of logic games',
@@ -204,40 +493,14 @@ We regularly update our library with new games to ensure there's always somethin
         { path: '/t-rex-game', title: 'T-Rex Game', description: 'Jump and dodge obstacles' }
       ]
     },
-    'dino-run': {
-      header: 'Dino Run Online',
-      subheader: 'The classic endless runner featuring a prehistoric hero',
-      gameTitle: 'Dino Run',
-      seo: {
-        title: 'Dino Run Online - Play the Classic T-Rex Runner Game',
-        description: 'Play Dino Run online, the famous endless runner game featuring a jumping dinosaur. No internet connection required to enjoy this classic.',
-        keywords: ['dino run', 'dinosaur game', 't-rex runner', 'chrome dino game', 'jumping dinosaur'],
-        canonicalUrl: 'https://dinorunonline.com/dino-run',
-      },
-      seoContent: {
-        title: 'Dino Run Online',
-        subtitle: 'The addictive T-Rex jumping game that never ends',
-        content: `Dino Run is the popular endless runner game featuring a pixelated T-Rex jumping over cacti and dodging obstacles. Originally appearing as an Easter egg in the Chrome browser when you have no internet connection, our version brings the classic gameplay to life with enhanced features and constant availability.
-
-The game is deceptively simple yet incredibly addictive. Just press space to jump over obstacles and duck to avoid flying pterodactyls. As your score increases, the game speeds up, making each successive jump more challenging than the last.
-
-Our version of Dino Run works on all devices including desktops, laptops, tablets, and mobile phones. No download required - just load the page and start playing instantly!`,
-        keywords: ['dino run', 'dinosaur game', 't-rex runner', 'chrome dino game', 'jumping dinosaur'],
-      },
-      relatedGames: [
-        { path: '/chrome-dino-game', title: 'Chrome Dino Game', description: 'The famous offline game' },
-        { path: '/t-rex-game', title: 'T-Rex Game', description: 'Jump and dodge obstacles' },
-        { path: '/dinosaur-game', title: 'Dinosaur Game', description: 'Classic endless runner' }
-      ]
-    }
   };
   
   // Add aliases for similar routes
-  gamesData['chrome-dino-game'] = gamesData['dino-run'];
-  gamesData['t-rex-game'] = gamesData['dino-run'];
-  gamesData['dinosaur-game'] = gamesData['dino-run'];
-  gamesData['dino-adventure'] = gamesData['dino-run'];
-  gamesData['dino-jump'] = gamesData['dino-run'];
+  gamesData['google-game-dino'] = gamesData['google-dino'];
+  gamesData['t-rex-chrome-dino-game'] = gamesData['t-rex-chrome'];
+  gamesData['dino-run-game'] = gamesData['dino-run'];
+  gamesData['t-rex-chrome-dino'] = gamesData['t-rex-chrome'];
+  gamesData['simple-web-games'] = gamesData['simple-web-game'];
   
   return gamesData[path] || defaultData;
 }
