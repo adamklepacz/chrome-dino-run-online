@@ -763,6 +763,9 @@ export class DinoGame {
     // Draw dino
     this.drawDino();
     
+    // If game hasn't started, don't draw obstacles and other game elements
+    if (!this.state.gameStarted) return;
+    
     // Draw obstacles
     this.drawObstacles();
     
@@ -1087,5 +1090,16 @@ export class DinoGame {
   // Method to get TURBO time left
   public getTurboTimeLeft(): number {
     return this.state.turboTimeLeft;
+  }
+  
+  // Add a public method to draw the initial game state
+  public drawInitialState(): void {
+    // Clear canvas
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    
+    // Draw background elements and dino
+    this.drawClouds();
+    this.drawGround();
+    this.drawDino();
   }
 } 

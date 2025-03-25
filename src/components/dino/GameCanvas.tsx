@@ -73,6 +73,22 @@ const GameCanvas: React.FC = () => {
     // Add custom event listener for game over
     newGame.onGameOver = handleGameOver;
     
+    // Initialize the game loop to show the dinosaur without starting gameplay
+    newGame.stop(); // Stop any existing loops
+    
+    // Animation function for initial state
+    let animFrameId: number;
+    
+    const renderLoop = () => {
+      if (gameRef.current && !gameRef.current.isGameStarted() && !gameRef.current.isGameOver()) {
+        gameRef.current.drawInitialState();
+      }
+      animFrameId = requestAnimationFrame(renderLoop);
+    };
+    
+    // Start the render loop
+    animFrameId = requestAnimationFrame(renderLoop);
+    
     // Interval do aktualizacji danych UI
     const stateInterval = setInterval(syncGameState, 100);
     
@@ -115,6 +131,7 @@ const GameCanvas: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
       clearInterval(stateInterval);
+      cancelAnimationFrame(animFrameId);
       if (gameRef.current) {
         gameRef.current.stop();
       }
@@ -160,12 +177,8 @@ const GameCanvas: React.FC = () => {
         />
         
         {!gameStarted && !gameOver && (
-          <div className="absolute inset-0 flex items-center justify-center flex-col bg-background/80">
-            <h2 className="text-2xl font-bold mb-4">Press SPACE to Start</h2>
-            <p className="text-muted-foreground mb-2">Jump with SPACE, Shoot with Z</p>
-            <p className="text-muted-foreground mb-2">Crouch with C key</p>
-            <p className="text-muted-foreground mb-2">TURBO mode with X key</p>
-            <p className="text-xs text-muted-foreground/80 mt-2">A weapon will appear when you reach 100 points</p>
+          <div className="absolute inset-0 flex items-center justify-center flex-col bg-transparent">
+            <h2 className="text-2xl font-bold mb-4 bg-background/70 px-6 py-3 rounded-lg">Press SPACE to Start</h2>
           </div>
         )}
         
