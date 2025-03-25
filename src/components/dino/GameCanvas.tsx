@@ -51,8 +51,8 @@ const GameCanvas: React.FC = () => {
     if (!canvas) return;
     
     // Set canvas width and height
-    canvas.width = 800;
-    canvas.height = 300;
+    canvas.width = 1000;
+    canvas.height = 400;
     
     // Create game instance
     const newGame = new DinoGame(canvas);
