@@ -112,15 +112,15 @@ export class DinoGame {
   private gameOverX = 954;
   private gameOverY = 25;
   private gameOverWidth = 382;
-  private gameOverHeight = 23;
+  private gameOverHeight = 25;
   private numbersX = 954;
   private numbersY = 0;
   private numberWidth = 20;
   private numberHeight = 23;
-  private refreshIconX = 2;  // First icon on the left in sprite.png
+  private refreshIconX = 2;  // Start position in sprite.png
   private refreshIconY = 2;
-  private refreshIconWidth = 36;
-  private refreshIconHeight = 32;
+  private refreshIconWidth = 73;  // Updated width: 75 - 2 = 73
+  private refreshIconHeight = 65;  // Updated height: 67 - 2 = 65
   
   // Add these sprite coordinates for pterodactyl
   private pterodactylWingsUpX = 260;     // Adjusted frame position in sprite.png
@@ -871,12 +871,7 @@ export class DinoGame {
     
     // Clear the canvas overlay added by GameCanvas component
     
-    // Draw semi-transparent overlay for better text visibility
-    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    
     // Draw game over text using sprite image
-    // Use the GAME OVER text from sprite.png
     this.ctx.drawImage(
       this.spriteSheet,
       this.gameOverX, this.gameOverY, this.gameOverWidth, this.gameOverHeight,
@@ -909,8 +904,8 @@ export class DinoGame {
     this.ctx.drawImage(
       this.spriteSheet,
       this.refreshIconX, this.refreshIconY, this.refreshIconWidth, this.refreshIconHeight,
-      (this.canvas.width - iconSize) / 2, this.canvas.height / 2 + 40,
-      iconSize, iconSize
+      (this.canvas.width - this.refreshIconWidth) / 2, this.canvas.height / 2 + 40,
+      this.refreshIconWidth, this.refreshIconHeight  // Use actual dimensions instead of fixed iconSize
     );
     
     // Reset text alignment
