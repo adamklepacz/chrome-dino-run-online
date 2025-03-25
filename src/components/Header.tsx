@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ className }) => {
   return (
-    <header className={cn("w-full py-4 px-4 border-b border-border/40 backdrop-blur-sm bg-background/80 sticky top-0 z-50", className)}>
+    <header className={cn("w-full py-4 px-4 border-b border-border/40 backdrop-blur-sm bg-background/80 z-50 lg:sticky lg:top-0", className)}>
       <div className="container mx-auto flex items-center justify-between">
         <Link to="/" className="text-xl font-bold text-foreground flex items-center gap-2 transition-all hover:opacity-80">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse-subtle"></span>
