@@ -55,6 +55,7 @@ interface GameState {
   gameOver: boolean;
   gameStarted: boolean;
   isPaused: boolean;
+  debugMode: boolean;
 }
 
 export class DinoGame {
@@ -86,7 +87,8 @@ export class DinoGame {
     gameSpeed: 0,
     gameOver: false,
     gameStarted: false,
-    isPaused: false
+    isPaused: false,
+    debugMode: false
   };
   
   // Sprites positions
@@ -198,7 +200,8 @@ export class DinoGame {
       gameSpeed: INITIAL_GAME_SPEED,
       gameOver: false,
       gameStarted: true,
-      isPaused: false
+      isPaused: false,
+      debugMode: false
     };
     
     // Reset game objects
@@ -570,9 +573,36 @@ export class DinoGame {
   }
   
   private checkCollisions(): void {
+    // Create a smaller hitbox for the dino to make collisions more forgiving
+    const dinoHitbox = {
+      x: this.dino.x + 10,  // Add some padding on the left
+      y: this.dino.y + 10,  // Add some padding on top (especially helps when jumping)
+      width: this.dino.width - 20, // Make hitbox a bit smaller than the visual sprite
+      height: this.dino.height - 15 // Slightly less reduction in height to maintain proper ground contact
+    };
+    
+    // Draw debug hitbox if debug mode is enabled
+    if (this.state.debugMode) {
+      this.drawHitbox(dinoHitbox, 'red');
+    }
+    
     // Check collision with obstacles
     for (const obstacle of this.obstacles) {
-      if (this.isCollision(this.dino, obstacle)) {
+      // Create a hitbox that's slightly smaller than the visual size
+      // to make the collision detection more forgiving
+      const obstacleHitbox = {
+        x: obstacle.x + 10,  // Add some padding on the left
+        y: obstacle.y + 10,  // Add some padding on top
+        width: obstacle.width - 20,  // Make hitbox a bit smaller than the visual sprite
+        height: obstacle.height - 20 // Make hitbox a bit smaller than the visual sprite
+      };
+      
+      // Draw debug hitbox if debug mode is enabled
+      if (this.state.debugMode) {
+        this.drawHitbox(obstacleHitbox, 'blue');
+      }
+      
+      if (this.isCollision(dinoHitbox, obstacleHitbox)) {
         this.gameOver();
         return;
       }
@@ -591,8 +621,13 @@ export class DinoGame {
         height: monster.height - 20
       };
       
+      // Draw debug hitbox if debug mode is enabled
+      if (this.state.debugMode) {
+        this.drawHitbox(monsterHitbox, 'green');
+      }
+      
       // Check collision with dino
-      if (this.isCollision(this.dino, monsterHitbox)) {
+      if (this.isCollision(dinoHitbox, monsterHitbox)) {
         this.gameOver();
         return;
       }
@@ -621,7 +656,7 @@ export class DinoGame {
     for (let i = 0; i < this.weapons.length; i++) {
       const weapon = this.weapons[i];
       
-      if (weapon.visible && this.isCollision(this.dino, weapon)) {
+      if (weapon.visible && this.isCollision(dinoHitbox, weapon)) {
         // Collect weapon
         this.dino.hasWeapon = true;
         weapon.visible = false;
@@ -912,6 +947,13 @@ export class DinoGame {
     this.ctx.textAlign = 'left';
   }
   
+  // Helper method to draw hitboxes for debug purposes
+  private drawHitbox(obj: GameObject, color: string): void {
+    this.ctx.strokeStyle = color;
+    this.ctx.lineWidth = 2;
+    this.ctx.strokeRect(obj.x, obj.y, obj.width, obj.height);
+  }
+  
   // Metody do sprawdzania stanu gry
   public isGameOver(): boolean {
     return this.state.gameOver;
@@ -952,5 +994,10 @@ export class DinoGame {
   // Method to check if game is paused
   public isPaused(): boolean {
     return this.state.isPaused;
+  }
+  
+  // Add a method to toggle debug mode
+  public toggleDebugMode(): void {
+    this.state.debugMode = !this.state.debugMode;
   }
 } 

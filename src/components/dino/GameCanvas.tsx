@@ -11,6 +11,7 @@ const GameCanvas: React.FC = () => {
   const [hasWeapon, setHasWeapon] = useState(false);
   const [isCrouching, setIsCrouching] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [debugMode, setDebugMode] = useState(false);
   
   // Funkcja do synchronizacji stanu gry
   const syncGameState = useCallback(() => {
@@ -37,6 +38,13 @@ const GameCanvas: React.FC = () => {
     if (!gameRef.current) return;
     gameRef.current.handleCrouch(isCrouching);
   }, []);
+  
+  // Function to toggle debug mode
+  const handleToggleDebug = useCallback(() => {
+    if (!gameRef.current) return;
+    gameRef.current.toggleDebugMode();
+    setDebugMode(!debugMode);
+  }, [debugMode]);
   
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -213,6 +221,19 @@ const GameCanvas: React.FC = () => {
             ⚠️ Debug: Paused
           </p>
         )}
+        
+        {debugMode && (
+          <p className="mt-2 text-red-500 font-medium">
+            🐞 Debug Mode: ON - Hitboxes visible
+          </p>
+        )}
+        
+        <button
+          onClick={handleToggleDebug}
+          className="mt-4 px-3 py-1 text-xs bg-muted text-muted-foreground rounded-lg hover:bg-muted/80"
+        >
+          {debugMode ? "Disable" : "Enable"} Debug Mode
+        </button>
       </div>
     </div>
   );
