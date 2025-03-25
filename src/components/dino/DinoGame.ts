@@ -33,6 +33,7 @@ interface Obstacle extends GameObject {
 
 interface Monster extends GameObject {
   speed: number;
+  frameIndex?: number; // For animation frames
 }
 
 interface Weapon extends GameObject {
@@ -53,6 +54,7 @@ interface GameState {
   gameSpeed: number;
   gameOver: boolean;
   gameStarted: boolean;
+  isPaused: boolean;
 }
 
 export class DinoGame {
@@ -83,7 +85,8 @@ export class DinoGame {
     highScore: 0,
     gameSpeed: 0,
     gameOver: false,
-    gameStarted: false
+    gameStarted: false,
+    isPaused: false
   };
   
   // Sprites positions
@@ -118,6 +121,16 @@ export class DinoGame {
   private refreshIconY = 2;
   private refreshIconWidth = 36;
   private refreshIconHeight = 32;
+  
+  // Add these sprite coordinates for pterodactyl
+  private pterodactylWingsUpX = 260;     // Adjusted frame position in sprite.png
+  private pterodactylWingsUpY = 2;       // Y position in sprite.png
+  private pterodactylWingsDownX = 350;   // Adjusted second frame position
+  private pterodactylWingsDownY = 2;     // Y position in sprite.png
+  private pterodactylWidth = 93;         // Original width from the code
+  private pterodactylHeight = 69;        // Original height from the code
+  private pterodactylDisplayWidth = 93;  // Display with same dimensions
+  private pterodactylDisplayHeight = 69; // Display with same dimensions
   
   // For crouching animation
   private calculateCrouchY(): number {
@@ -184,7 +197,8 @@ export class DinoGame {
       highScore: this.state.highScore, // Keep high score
       gameSpeed: INITIAL_GAME_SPEED,
       gameOver: false,
-      gameStarted: true
+      gameStarted: true,
+      isPaused: false
     };
     
     // Reset game objects
@@ -309,8 +323,10 @@ export class DinoGame {
     // Clear canvas
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
-    // Update game state
-    this.update(deltaTime);
+    // Update game state if not paused
+    if (!this.state.isPaused) {
+      this.update(deltaTime);
+    }
     
     // Draw game
     this.draw();
@@ -322,7 +338,7 @@ export class DinoGame {
   }
   
   private update(deltaTime: number): void {
-    if (!this.state.gameStarted || this.state.gameOver) return;
+    if (!this.state.gameStarted || this.state.gameOver || this.state.isPaused) return;
     
     this.frameCount++;
     
@@ -455,21 +471,70 @@ export class DinoGame {
       this.monsters.push({
         x: this.canvas.width,
         y: randomY,
-        width: 93,
-        height: 69,
-        speed: this.state.gameSpeed * 0.8
+        width: this.pterodactylDisplayWidth,
+        height: this.pterodactylDisplayHeight,
+        speed: this.state.gameSpeed * 0.8,
+        frameIndex: 0 // Start with wings up
       });
     }
   }
   
   private generateWeapon(): void {
-    this.weapons.push({
+    // Create a new weapon at a safe position
+    const weapon = {
       x: this.canvas.width,
       y: this.groundY - 60, // Position above ground
       width: 45,
       height: 30,
       visible: true
-    });
+    };
+
+    // Check if there is any obstacle nearby that would make collecting the weapon dangerous
+    if (this.isSafePosition(weapon)) {
+      this.weapons.push(weapon);
+    } else {
+      // Try again after some frames if current position isn't safe
+      setTimeout(() => {
+        if (!this.dino.hasWeapon && this.weapons.length === 0 && !this.state.gameOver) {
+          this.generateWeapon();
+        }
+      }, 1000); // Wait a second before trying again
+    }
+  }
+  
+  private isSafePosition(weapon: GameObject): boolean {
+    // Safety margin (extra space to ensure player doesn't need to be too close to obstacles)
+    const safetyMargin = 100;
+    
+    // Check if any obstacle is too close to the weapon
+    for (const obstacle of this.obstacles) {
+      // Calculate horizontal distance between obstacle and weapon
+      const horizontalDistance = obstacle.x - weapon.x;
+      
+      // If obstacle is ahead of weapon and close enough to be dangerous
+      if (horizontalDistance >= -obstacle.width && horizontalDistance <= safetyMargin) {
+        return false;
+      }
+    }
+    
+    // Check monsters too
+    for (const monster of this.monsters) {
+      // Calculate horizontal distance between monster and weapon
+      const horizontalDistance = monster.x - weapon.x;
+      
+      // If monster is ahead of weapon and close enough to be dangerous
+      if (horizontalDistance >= -monster.width && horizontalDistance <= safetyMargin) {
+        return false;
+      }
+      
+      // Also check vertical distance for flying monsters
+      const verticalDistance = Math.abs(monster.y - weapon.y);
+      if (verticalDistance < monster.height + weapon.height) {
+        return false; // Too close vertically
+      }
+    }
+    
+    return true; // No obstacles are dangerously close
   }
   
   private updateObstacles(): void {
@@ -517,8 +582,17 @@ export class DinoGame {
     for (let i = 0; i < this.monsters.length; i++) {
       const monster = this.monsters[i];
       
+      // Create a hitbox that's slightly smaller than the visual size
+      // to make the collision detection more forgiving
+      const monsterHitbox = {
+        x: monster.x + 10,  // Adjust hitbox position slightly
+        y: monster.y + 10,
+        width: monster.width - 20,  // Make hitbox a bit smaller than the visual sprite
+        height: monster.height - 20
+      };
+      
       // Check collision with dino
-      if (this.isCollision(this.dino, monster)) {
+      if (this.isCollision(this.dino, monsterHitbox)) {
         this.gameOver();
         return;
       }
@@ -527,7 +601,7 @@ export class DinoGame {
       for (let j = 0; j < this.bullets.length; j++) {
         const bullet = this.bullets[j];
         
-        if (this.isCollision(bullet, monster)) {
+        if (this.isCollision(bullet, monsterHitbox)) {
           // Remove monster and bullet
           this.monsters.splice(i, 1);
           this.bullets.splice(j, 1);
@@ -738,12 +812,25 @@ export class DinoGame {
   
   private drawMonsters(): void {
     for (const monster of this.monsters) {
-      // Draw monster sprite
+      // Determine which sprite frame to use for animation
+      const frameIndex = Math.floor(this.frameCount / 10) % 2; // Change frame every 10 frames
+      
+      // Coordinates in the sprite sheet
+      const srcX = frameIndex === 0 ? this.pterodactylWingsUpX : this.pterodactylWingsDownX;
+      const srcY = this.pterodactylWingsUpY; // Same Y for both frames
+      
+      // Draw the correct pterodactyl frame
       this.ctx.drawImage(
         this.spriteSheet,
-        134, 2, 93, 69,
-        monster.x, monster.y, monster.width, monster.height
+        srcX, srcY, 
+        this.pterodactylWidth, this.pterodactylHeight,
+        monster.x, monster.y, 
+        this.pterodactylDisplayWidth, this.pterodactylDisplayHeight
       );
+      
+      // Debug visualization - uncomment for debugging hitbox
+      // this.ctx.strokeStyle = 'red';
+      // this.ctx.strokeRect(monster.x, monster.y, monster.width, monster.height);
     }
   }
   
@@ -853,5 +940,22 @@ export class DinoGame {
   
   public isCrouching(): boolean {
     return this.dino.crouching;
+  }
+  
+  // Add pause/resume method
+  public togglePause(): void {
+    if (!this.state.gameStarted || this.state.gameOver) return;
+    
+    this.state.isPaused = !this.state.isPaused;
+    
+    // If we're unpausing, update the last frame time to avoid a big jump
+    if (!this.state.isPaused) {
+      this.lastFrameTime = performance.now();
+    }
+  }
+  
+  // Method to check if game is paused
+  public isPaused(): boolean {
+    return this.state.isPaused;
   }
 } 
