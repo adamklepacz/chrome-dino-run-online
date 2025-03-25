@@ -109,7 +109,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
             &copy; {currentYear} DinoRunOnline.com. All rights reserved.
           </p>
           <p className="text-sm text-muted-foreground">
-            Built with Cursor and Lovable (AI Toolks) 🤖 by <a href="https://github.com/adamklepacz" className="hover:text-foreground transition-colors underline">Adam Klepacz</a> as a side-project
+            Built with Cursor and Lovable (AI Tools) 🤖 by <a href="https://github.com/adamklepacz" className="hover:text-foreground transition-colors underline">Adam Klepacz</a> as a side-project
           </p>
         </div>
       </div>

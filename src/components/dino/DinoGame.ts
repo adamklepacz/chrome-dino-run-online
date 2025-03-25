@@ -4,6 +4,9 @@ const JUMP_VELOCITY = -15;
 const GRAVITY = 0.6;
 const INITIAL_GAME_SPEED = 7;
 const MAX_GAME_SPEED = 17;
+const TURBO_SPEED_MULTIPLIER = 1.5; // Multiplier for TURBO mode
+const TURBO_DURATION = 3000; // Duration of TURBO mode in milliseconds
+const TURBO_COOLDOWN = 5000; // Cooldown period after TURBO mode in milliseconds
 const SCORE_INCREMENT = 1;
 const SCORE_INTERVAL = 6; 
 const WEAPON_SCORE_THRESHOLD = 100; // Score needed to get a weapon
@@ -56,6 +59,9 @@ interface GameState {
   gameStarted: boolean;
   isPaused: boolean;
   debugMode: boolean;
+  turboMode: boolean; // New property for TURBO mode
+  turboCooldown: boolean; // Flag to indicate if TURBO is in cooldown
+  turboTimeLeft: number; // Time left for TURBO mode or cooldown
 }
 
 export class DinoGame {
@@ -68,6 +74,8 @@ export class DinoGame {
   private frameCount: number = 0;
   private lastFrameTime: number = 0;
   private groundOffset: number = 0;
+  private turboTimer: number | null = null; // Timer for TURBO mode
+  private baseGameSpeed: number = INITIAL_GAME_SPEED; // Store base game speed
   
   // Callback for game over event
   public onGameOver: () => void = () => {};
@@ -88,7 +96,10 @@ export class DinoGame {
     gameOver: false,
     gameStarted: false,
     isPaused: false,
-    debugMode: false
+    debugMode: false,
+    turboMode: false,
+    turboCooldown: false,
+    turboTimeLeft: 0
   };
   
   // Sprites positions
@@ -202,8 +213,13 @@ export class DinoGame {
       gameOver: false,
       gameStarted: true,
       isPaused: false,
-      debugMode: false
+      debugMode: false,
+      turboMode: false,
+      turboCooldown: false,
+      turboTimeLeft: 0
     };
+    
+    this.baseGameSpeed = INITIAL_GAME_SPEED;
     
     // Reset game objects
     this.obstacles = [];
@@ -352,11 +368,32 @@ export class DinoGame {
       this.state.score += SCORE_INCREMENT;
     }
     
-    // Increase game speed based on score
-    this.state.gameSpeed = Math.min(
+    // Update TURBO time left
+    if (this.state.turboMode || this.state.turboCooldown) {
+      this.state.turboTimeLeft -= deltaTime;
+      if (this.state.turboTimeLeft <= 0) {
+        if (this.state.turboMode) {
+          // End TURBO mode, start cooldown
+          this.state.turboMode = false;
+          this.state.turboCooldown = true;
+          this.state.turboTimeLeft = TURBO_COOLDOWN;
+        } else {
+          // End cooldown
+          this.state.turboCooldown = false;
+        }
+      }
+    }
+    
+    // Calculate base game speed based on score
+    this.baseGameSpeed = Math.min(
       INITIAL_GAME_SPEED + (this.state.score / 100),
       MAX_GAME_SPEED
     );
+    
+    // Apply TURBO multiplier if active
+    this.state.gameSpeed = this.state.turboMode 
+      ? Math.min(this.baseGameSpeed * TURBO_SPEED_MULTIPLIER, MAX_GAME_SPEED) 
+      : this.baseGameSpeed;
     
     // Update ground position
     this.updateGround();
@@ -915,6 +952,15 @@ export class DinoGame {
     this.ctx.font = '20px Arial';
     this.ctx.fillText(`Score: ${this.state.score}`, 20, 30);
     this.ctx.fillText(`High Score: ${this.state.highScore}`, this.canvas.width - 200, 30);
+    
+    // Display TURBO status if active or on cooldown
+    if (this.state.turboMode) {
+      this.ctx.fillStyle = '#FF6600';
+      this.ctx.fillText(`TURBO: ${Math.ceil(this.state.turboTimeLeft / 1000)}s`, this.canvas.width / 2 - 50, 30);
+    } else if (this.state.turboCooldown) {
+      this.ctx.fillStyle = '#999999';
+      this.ctx.fillText(`TURBO Cooldown: ${Math.ceil(this.state.turboTimeLeft / 1000)}s`, this.canvas.width / 2 - 80, 30);
+    }
   }
   
   private drawGameOver(): void {
@@ -1015,5 +1061,31 @@ export class DinoGame {
   // Add a method to toggle debug mode
   public toggleDebugMode(): void {
     this.state.debugMode = !this.state.debugMode;
+  }
+  
+  // Add turbo activation method
+  public activateTurbo(): void {
+    if (!this.state.gameStarted || this.state.gameOver || this.state.isPaused || 
+        this.state.turboMode || this.state.turboCooldown) {
+      return; // Can't activate if game not running or already in TURBO/cooldown
+    }
+    
+    this.state.turboMode = true;
+    this.state.turboTimeLeft = TURBO_DURATION;
+  }
+  
+  // Method to check if TURBO is on cooldown
+  public isTurboCooldown(): boolean {
+    return this.state.turboCooldown;
+  }
+  
+  // Method to check if TURBO is active
+  public isTurboActive(): boolean {
+    return this.state.turboMode;
+  }
+  
+  // Method to get TURBO time left
+  public getTurboTimeLeft(): number {
+    return this.state.turboTimeLeft;
   }
 } 

@@ -70,14 +70,7 @@ Play Chrome Dino on any device with a web browser - no download or installation 
           <p className="text-lg text-center mb-8 text-muted-foreground">
             Help your pixelated T-Rex dodge obstacles and survive as long as possible in this classic game! Originally an Easter egg in the Chrome browser, our online version lets you play anytime, with the same addictive gameplay that's made this simple runner game a worldwide phenomenon.
           </p>
-          <div className="mb-8 flex justify-center">
-            <Link 
-              to="/chrome-dino" 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 py-3 px-6 rounded-lg text-lg font-medium transition-colors"
-            >
-              Play Chrome Dino Now →
-            </Link>
-          </div>
+      
           <GameCanvas />
           <div className="mt-6 text-center">
             <Link to="/faq" className="text-primary hover:text-primary/80 transition-colors">
