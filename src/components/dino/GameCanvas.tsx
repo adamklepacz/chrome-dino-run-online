@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { DinoGame } from './DinoGame';
+import RotationMessage from './RotationMessage';
+import ScrollLockButton from '@/components/ScrollLockButton';
 
 const GameCanvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -64,7 +66,7 @@ const GameCanvas: React.FC = () => {
     
     // Set canvas width and height
     canvas.width = 1000;
-    canvas.height = 400;
+    canvas.height = 380;
     
     // Create game instance
     const newGame = new DinoGame(canvas);
@@ -164,7 +166,7 @@ const GameCanvas: React.FC = () => {
   
   return (
     <div className="flex flex-col items-center">
-  
+      <RotationMessage />
       
       <div className="relative border-2 border-foreground rounded-lg overflow-hidden bg-background">
         <canvas 
@@ -185,7 +187,7 @@ const GameCanvas: React.FC = () => {
         {/* Game over overlay has been removed and is now handled in DinoGame.ts */}
       </div>
       <div className="mt-4 flex flex-col items-center w-full max-w-lg">
-        <div className="grid grid-cols-4 gap-4 w-full">
+        <div className="grid grid-cols-5 gap-4 w-full">
           {/* Jump button */}
           <div className="flex flex-col items-center">
             <button 
@@ -262,10 +264,15 @@ const GameCanvas: React.FC = () => {
                   : "TURBO"}
             </span>
           </div>
+          
+          {/* Scroll Lock button - only visible on mobile */}
+          <div className="flex flex-col items-center lg:hidden">
+            <ScrollLockButton disabled={!gameStarted && gameOver} />
+          </div>
         </div>
         
         <div className="mt-6 text-xs text-muted-foreground text-center max-w-md">
-          <p className="mb-1">Controls: <kbd className="px-1 rounded bg-muted">SPACE</kbd> to jump, <kbd className="px-1 rounded bg-muted">Z</kbd> to shoot, <kbd className="px-1 rounded bg-muted">C</kbd> to crouch, <kbd className="px-1 rounded bg-muted">X</kbd> for TURBO.</p>
+          <p className="mb-1">Controls: <kbd className="px-1 rounded bg-muted">SPACE</kbd> to jump, <kbd className="px-1 rounded bg-muted">Z</kbd> to shoot, <kbd className="px-1 rounded bg-muted">C</kbd> to crouch, <kbd className="px-1 rounded bg-muted">X</kbd> for TURBO, <kbd className="px-1 rounded bg-muted md:hidden">L</kbd> <span className="md:hidden">to lock scroll</span>.</p>
           
           {gameStarted && !gameOver && score < 100 && !hasWeapon && (
             <p className="mt-2">

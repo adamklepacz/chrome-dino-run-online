@@ -338,7 +338,7 @@ Play Google Dino on any device with a browser - no need to disconnect from the i
         ogType: "website"
       } as SeoType,
       seoContent: {
-        title: "Run Dino Run - Endless Runner Game",
+        title: "Run Dino Run - Play the Endless T-Rex Runner Game Online",
         subtitle: "The exciting dinosaur running adventure",
         content: `Run Dino Run brings the thrill of controlling a prehistoric T-Rex in a challenging endless runner format! Originally inspired by Chrome's famous offline dinosaur game, our enhanced version adds more excitement and features.
 

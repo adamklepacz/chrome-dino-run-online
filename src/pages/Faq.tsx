@@ -58,7 +58,7 @@ const Faq = () => {
     },
     {
       question: "Who created DinoRunOnline?",
-      answer: "DinoRunOnline was created by a team of web developers and gaming enthusiasts who wanted to make the Chrome Dinosaur Game available to everyone, anytime - not just when your internet is down. We've implemented this game using modern web technologies to provide a smooth and enjoyable experience across all devices."
+      answer: "DinoRunOnline was created by Adam Klepacz (https://www.linkedin.com/in/adam-klepacz/). I wanted to make the Chrome Dinosaur Game available to everyone, anytime - not just when your internet is down. I've implemented this game using modern web technologies to provide a smooth and enjoyable experience across all devices."
     }
   ];
 
