@@ -96,11 +96,12 @@ export class DinoGame {
   private dinoRunning2X = 1602;
   private dinoJumpingX = 1338;
   private dinoCrouching1X = 1866;
-  private dinoCrouching2X = 1984;
   private dinoWidth = 88;
-  private dinoHeight = 94;
   private dinoCrouchWidth = 118;
+  private dinoCrouching2X = 1984;
+  private dinoHeight = 94;
   private dinoCrouchHeight = 60;
+  private crouchingSpriteY = 36; // Y position of crouching sprite
   private cloudX = 166;
   private cloudY = 2;
   private cloudWidth = 92;
@@ -136,9 +137,9 @@ export class DinoGame {
   
   // For crouching animation
   private calculateCrouchY(): number {
-    // This ensures the dinosaur sits visually on top of the ground line
-    // instead of sinking into it
-    return this.groundY - this.dinoCrouchHeight;
+    // In the original code, the y position doesn't change when crouching
+    // It just uses a different hitbox
+    return this.groundY - this.dinoHeight;
   }
 
   constructor(canvas: HTMLCanvasElement) {
@@ -216,13 +217,14 @@ export class DinoGame {
     this.generateInitialClouds();
     
     // Reset dino
-    this.dino.y = this.groundY - this.dino.height;
     this.dino.velocityY = 0;
     this.dino.jumping = false;
     this.dino.hasWeapon = false;
     this.dino.crouching = false;
     this.dino.width = this.dinoWidth;
     this.dino.height = this.dinoHeight;
+    // Ensure correct Y position
+    this.dino.y = this.groundY - this.dino.height;
     
     // Start game loop
     this.lastFrameTime = performance.now();
@@ -288,9 +290,9 @@ export class DinoGame {
         // Update hitbox size
         this.dino.width = this.dinoCrouchWidth;
         this.dino.height = this.dinoCrouchHeight;
-        // Update position to align with ground, but not sink into it
-        // The dinosaur should appear at the ground level, not below it
-        this.dino.y = this.calculateCrouchY();
+        // Adjust Y position to keep feet on ground
+        // dinoHeight - dinoCrouchHeight is the difference in heights
+        this.dino.y = this.groundY - this.dinoCrouchHeight;
       }
     } else {
       // Stop crouching
@@ -299,8 +301,8 @@ export class DinoGame {
         // Restore hitbox size
         this.dino.width = this.dinoWidth;
         this.dino.height = this.dinoHeight;
-        // Update position to align with ground
-        this.dino.y = this.groundY - this.dino.height;
+        // Restore Y position
+        this.dino.y = this.groundY - this.dinoHeight;
       }
     }
   }
@@ -576,14 +578,26 @@ export class DinoGame {
     // Create a smaller hitbox for the dino to make collisions more forgiving
     const dinoHitbox = {
       x: this.dino.x + 10,  // Add some padding on the left
-      y: this.dino.y + 10,  // Add some padding on top (especially helps when jumping)
+      y: this.dino.y + (this.dino.crouching ? 20 : 10),  // Adjusted padding for crouching
       width: this.dino.width - 20, // Make hitbox a bit smaller than the visual sprite
-      height: this.dino.height - 15 // Slightly less reduction in height to maintain proper ground contact
+      height: this.dino.height - (this.dino.crouching ? 30 : 15) // Adjusted height reduction for crouching
     };
     
     // Draw debug hitbox if debug mode is enabled
     if (this.state.debugMode) {
       this.drawHitbox(dinoHitbox, 'red');
+      // Also draw the visual sprite box in a different color
+      this.ctx.strokeStyle = 'green';
+      this.ctx.lineWidth = 1;
+      this.ctx.strokeRect(this.dino.x, this.dino.y, this.dino.width, this.dino.height);
+      
+      // Draw ground level line
+      this.ctx.strokeStyle = 'blue';
+      this.ctx.lineWidth = 1;
+      this.ctx.beginPath();
+      this.ctx.moveTo(0, this.groundY);
+      this.ctx.lineTo(this.canvas.width, this.groundY);
+      this.ctx.stroke();
     }
     
     // Check collision with obstacles
@@ -766,21 +780,24 @@ export class DinoGame {
   private drawDino(): void {
     // Determine which sprite to use based on dino state
     let spriteX = this.dinoJumpingX;
+    let spriteY = 0; // Default Y position for running/jumping
     let spriteWidth = this.dinoWidth;
     let spriteHeight = this.dinoHeight;
     
     if (this.dino.jumping) {
       // Use jumping sprite
       spriteX = this.dinoJumpingX;
+      spriteY = 0;
       spriteWidth = this.dinoWidth;
       spriteHeight = this.dinoHeight;
     } else if (this.dino.crouching) {
-      // Use crouching sprite
+      // Use dedicated crouching sprites with different Y position
       if (this.frameCount % 10 < 5) {
         spriteX = this.dinoCrouching1X;
       } else {
         spriteX = this.dinoCrouching2X;
       }
+      spriteY = this.crouchingSpriteY;
       spriteWidth = this.dinoCrouchWidth;
       spriteHeight = this.dinoCrouchHeight;
     } else {
@@ -790,16 +807,15 @@ export class DinoGame {
       } else {
         spriteX = this.dinoRunning2X;
       }
+      spriteY = 0;
       spriteWidth = this.dinoWidth;
       spriteHeight = this.dinoHeight;
     }
     
     // Draw dino sprite
-    // When crouching, maintain the dinosaur's visual position at ground level
-    // This prevents the visual appearance of sinking into the ground
     this.ctx.drawImage(
       this.spriteSheet,
-      spriteX, 0, spriteWidth, spriteHeight,
+      spriteX, spriteY, spriteWidth, spriteHeight,
       this.dino.x, this.dino.y, this.dino.width, this.dino.height
     );
     
