@@ -155,85 +155,89 @@ const GameCanvas: React.FC = () => {
         
         {/* Game over overlay has been removed and is now handled in DinoGame.ts */}
       </div>
-      
-      <div className="mt-4 grid grid-cols-4 gap-3 w-full max-w-md">
-        <button 
-          className="btn bg-primary text-primary-foreground hover:bg-primary/90 py-3 px-2 rounded-lg font-medium text-lg flex items-center justify-center"
-          onClick={handleJumpButtonClick}
-        >
-          <kbd className="bg-primary-foreground/20 px-1 py-1 rounded mr-1 text-sm">SPACE</kbd>
-          {gameOver ? "Restart" : gameStarted ? "Jump" : "Start"}
-        </button>
+      <div className="mt-4 flex flex-col items-center w-full max-w-lg">
+        <div className="grid grid-cols-3 gap-6 w-full">
+          {/* Jump button */}
+          <div className="flex flex-col items-center">
+            <button 
+              className="btn bg-primary text-primary-foreground hover:bg-primary/90 w-24 h-24 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
+              onClick={handleJumpButtonClick}
+            >
+              <div className="flex flex-col items-center">
+                <span className="text-xl">{gameOver ? "🔄" : "⬆️"}</span>
+                <kbd className="bg-primary-foreground/20 px-1 rounded text-xs mt-1">SPACE</kbd>
+              </div>
+            </button>
+            <span className="text-sm mt-2">{gameOver ? "Restart" : gameStarted ? "Jump" : "Start"}</span>
+          </div>
+          
+          {/* Crouch button */}
+          <div className="flex flex-col items-center">
+            <button 
+              className="btn bg-primary text-primary-foreground hover:bg-primary/90 w-24 h-24 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow"
+              onMouseDown={handleCrouchButtonPress}
+              onMouseUp={handleCrouchButtonRelease}
+              onMouseLeave={handleCrouchButtonRelease}
+              onTouchStart={handleCrouchButtonPress}
+              onTouchEnd={handleCrouchButtonRelease}
+              disabled={gameOver || !gameStarted}
+            >
+              <div className="flex flex-col items-center">
+                <span className="text-xl">⬇️</span>
+                <kbd className="bg-primary-foreground/20 px-[2px] rounded text-xs mt-1">ARROW DOWN</kbd>
+              </div>
+            </button>
+            <span className="text-sm mt-2">Crouch</span>
+          </div>
+          
+          {/* Shoot button */}
+          <div className="flex flex-col items-center">
+            <button 
+              className={`btn w-24 h-24 rounded-full flex items-center justify-center shadow-md hover:shadow-lg transition-shadow ${
+                hasWeapon && !gameOver 
+                  ? "bg-primary text-primary-foreground hover:bg-primary/90" 
+                  : "bg-muted text-muted-foreground cursor-not-allowed"
+              }`}
+              onClick={handleShootButtonClick}
+              disabled={!hasWeapon || gameOver || !gameStarted}
+            >
+              <div className="flex flex-col items-center">
+                <span className="text-xl">🔫</span>
+                <kbd className="bg-primary-foreground/20 px-1 rounded text-xs mt-1">SHIFT</kbd>
+              </div>
+            </button>
+            <span className="text-sm mt-2">Shoot</span>
+          </div>
+        </div>
         
-        <button 
-          className={`btn py-3 px-2 rounded-lg font-medium text-lg flex items-center justify-center ${
-            hasWeapon && !gameOver 
-              ? "bg-primary text-primary-foreground hover:bg-primary/90" 
-              : "bg-muted text-muted-foreground cursor-not-allowed"
-          }`}
-          onClick={handleShootButtonClick}
-          disabled={!hasWeapon || gameOver || !gameStarted}
-        >
-          <kbd className="bg-primary-foreground/20 px-1 py-1 rounded mr-1 text-sm">SHIFT</kbd>
-          Shoot
-        </button>
-        
-        <button 
-          className="btn bg-primary text-primary-foreground hover:bg-primary/90 py-3 px-2 rounded-lg font-medium text-lg flex items-center justify-center"
-          onMouseDown={handleCrouchButtonPress}
-          onMouseUp={handleCrouchButtonRelease}
-          onMouseLeave={handleCrouchButtonRelease}
-          onTouchStart={handleCrouchButtonPress}
-          onTouchEnd={handleCrouchButtonRelease}
-          disabled={gameOver || !gameStarted}
-        >
-          <kbd className="bg-primary-foreground/20 px-1 py-1 rounded mr-1 text-sm">↓</kbd>
-          Crouch
-        </button>
-        
-        <button 
-          className={`btn py-3 px-2 rounded-lg font-medium text-lg flex items-center justify-center ${
-            !gameOver && gameStarted
-              ? isPaused 
-                ? "bg-secondary text-secondary-foreground hover:bg-secondary/90" 
-                : "bg-orange-500 text-white hover:bg-orange-600" 
-              : "bg-muted text-muted-foreground cursor-not-allowed"
-          }`}
-          onClick={handleTogglePause}
-          disabled={!gameStarted || gameOver}
-        >
-          <kbd className="bg-primary-foreground/20 px-1 py-1 rounded mr-1 text-sm">P</kbd>
-          {isPaused ? "Resume" : "Pause"}
-        </button>
-      </div>
-      
-      <div className="mt-4 text-xs text-muted-foreground text-center max-w-md">
-        <p className="mb-1">Controls: <kbd className="px-1 rounded bg-muted">SPACE</kbd> to jump, <kbd className="px-1 rounded bg-muted">SHIFT</kbd> to shoot, <kbd className="px-1 rounded bg-muted">↓</kbd> to crouch, <kbd className="px-1 rounded bg-muted">P</kbd> to pause</p>
-        
-        {gameStarted && !gameOver && score < 100 && !hasWeapon && (
-          <p className="mt-2">
-            Reach 100 points to get a weapon!
-          </p>
-        )}
-        
-        {isPaused && (
-          <p className="mt-2 text-orange-500 font-medium">
-            ⚠️ Debug: Paused
-          </p>
-        )}
-        
-        {debugMode && (
-          <p className="mt-2 text-red-500 font-medium">
-            🐞 Debug Mode: ON - Hitboxes visible
-          </p>
-        )}
-        
-        <button
-          onClick={handleToggleDebug}
-          className="mt-4 px-3 py-1 text-xs bg-muted text-muted-foreground rounded-lg hover:bg-muted/80"
-        >
-          {debugMode ? "Disable" : "Enable"} Debug Mode
-        </button>
+        <div className="mt-6 text-xs text-muted-foreground text-center max-w-md">
+          <p className="mb-1">Controls: <kbd className="px-1 rounded bg-muted">SPACE</kbd> to jump, <kbd className="px-1 rounded bg-muted">SHIFT</kbd> to shoot, <kbd className="px-1 rounded bg-muted">↓</kbd> to crouch.</p>
+          
+          {gameStarted && !gameOver && score < 100 && !hasWeapon && (
+            <p className="mt-2">
+              Reach 100 points to get a weapon!
+            </p>
+          )}
+          
+          {isPaused && (
+            <p className="mt-2 text-orange-500 font-medium">
+              ⚠️ Debug: Paused
+            </p>
+          )}
+          
+          {debugMode && (
+            <p className="mt-2 text-red-500 font-medium">
+              🐞 Debug Mode: ON - Hitboxes visible
+            </p>
+          )}
+          
+          <button
+            onClick={handleToggleDebug}
+            className="mt-4 px-3 py-1 text-xs bg-muted text-muted-foreground rounded-lg hover:bg-muted/80"
+          >
+            {debugMode ? "Disable" : "Enable"} Debug Mode
+          </button>
+        </div>
       </div>
     </div>
   );
