@@ -105,6 +105,11 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                   Privacy Policy
                 </Link>
               </li>
+              <li>
+                <Link to="/terms-of-service" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Terms of Service
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -119,6 +124,10 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           <p className="text-sm mt-2">
             <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
+            </Link>
+            <span className="mx-2">•</span>
+            <Link to="/terms-of-service" className="text-muted-foreground hover:text-foreground transition-colors">
+              Terms of Service
             </Link>
           </p>
         </div>
