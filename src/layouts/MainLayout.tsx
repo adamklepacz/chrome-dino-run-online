@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import SEO from '@/components/SEO';
+import CookieBanner from '@/components/CookieBanner';
 import { Helmet } from 'react-helmet';
 
 interface MainLayoutProps {
@@ -29,6 +30,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, seo }) => {
           {children}
         </main>
         <Footer />
+        <CookieBanner />
       </div>
     </>
   );

@@ -9,6 +9,7 @@ import DinoGame from "./pages/dino-game";
 import GamePage from "./pages/GamePage";
 import Index from "./pages/Index";
 import History from "./pages/history";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -41,6 +42,7 @@ const App = () => (
           <Route path="/simple-web-games" element={<GamePage />} /> */}
           
           <Route path="/faq" element={<Faq />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

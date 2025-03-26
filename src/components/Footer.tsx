@@ -100,6 +100,11 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
                   FAQ
                 </Link>
               </li>
+              <li>
+                <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -110,6 +115,11 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
           </p>
           <p className="text-sm text-muted-foreground">
             Built with Cursor and Lovable (AI Tools) 🤖 by <a href="https://github.com/adamklepacz" className="hover:text-foreground transition-colors underline">Adam Klepacz</a> as a side-project
+          </p>
+          <p className="text-sm mt-2">
+            <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground transition-colors">
+              Privacy Policy
+            </Link>
           </p>
         </div>
       </div>
