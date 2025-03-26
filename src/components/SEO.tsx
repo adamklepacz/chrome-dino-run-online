@@ -37,6 +37,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:description" content={description} />
       {ogImage && <meta property="og:image" content={ogImage} />}
       {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+      <meta name="google-adsense-account" content="ca-pub-9594748896271407"/>
       
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
