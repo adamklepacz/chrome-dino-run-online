@@ -29,7 +29,8 @@ function getRoutesFromSitemap() {
         '/google-game-dino',
         '/t-rex-chrome-dino-game',
         '/dino-run-game',
-        '/history'
+        '/history',
+        '/privacy-policy'
       ];
     }
 
@@ -71,7 +72,8 @@ function getRoutesFromSitemap() {
       '/google-game-dino',
       '/t-rex-chrome-dino-game',
       '/dino-run-game',
-      '/history'
+      '/history',
+      '/privacy-policy'
     ];
   }
 }
