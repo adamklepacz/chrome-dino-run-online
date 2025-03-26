@@ -44,6 +44,8 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={formattedTitle} />
       <meta name="twitter:description" content={description} />
       {ogImage && <meta name="twitter:image" content={ogImage} />}
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9594748896271407"
+     crossorigin="anonymous"></script>
     </Helmet>
   );
 };
