@@ -3,6 +3,7 @@ import MainLayout from '@/layouts/MainLayout';
 import { GameCanvas } from '@/components/dino';
 import { Link, useLocation } from 'react-router-dom';
 import SeoContent from '@/components/SeoContent';
+import useAnalytics from '@/hooks/use-posthog';
 
 // Define the SEO type to match the expectations of MainLayout
 interface SeoType {
@@ -17,12 +18,20 @@ interface SeoType {
 const DinoGame = () => {
   const location = useLocation();
   const path = location.pathname.substring(1); // Remove leading slash
+  const { trackEvent } = useAnalytics();
   
   // SEO data based on the current path
   const seoData = getSeoDataForPath(path);
   
-  // Add structured data for rich results
+  // Add structured data for rich results and track page view
   useEffect(() => {
+    // Track page view with PostHog
+    trackEvent('page_view', {
+      page: path,
+      title: seoData.seo.title,
+      path: location.pathname
+    });
+
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.text = JSON.stringify({
@@ -50,7 +59,16 @@ const DinoGame = () => {
     return () => {
       document.head.removeChild(script);
     };
-  }, [path, seoData.structuredData]);
+  }, [path, seoData.structuredData, trackEvent, location.pathname]);
+
+  // Handle game action tracking
+  const handleGameAction = (action: string, data?: Record<string, unknown>) => {
+    trackEvent(`game_${action}`, {
+      game_type: 'dino_run',
+      variant: path,
+      ...data
+    });
+  };
 
   return (
     <MainLayout seo={seoData.seo}>
@@ -63,7 +81,7 @@ const DinoGame = () => {
       
       <section className="section-container py-8 md:py-12">
         <div className="container mx-auto px-4">
-          <GameCanvas />
+          <GameCanvas onGameAction={handleGameAction} />
         </div>
       </section>
       

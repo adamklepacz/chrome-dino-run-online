@@ -3,7 +3,11 @@ import { DinoGame } from './DinoGame';
 import RotationMessage from './RotationMessage';
 import ScrollLockButton from '@/components/ScrollLockButton';
 
-const GameCanvas: React.FC = () => {
+interface GameCanvasProps {
+  onGameAction?: (action: string, data?: Record<string, unknown>) => void;
+}
+
+const GameCanvas: React.FC<GameCanvasProps> = ({ onGameAction }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const gameRef = useRef<DinoGame | null>(null);
   const [gameStarted, setGameStarted] = useState(false);
@@ -39,13 +43,33 @@ const GameCanvas: React.FC = () => {
   const handleGameOver = useCallback(() => {
     setGameOver(true);
     syncGameState();
-  }, [syncGameState]);
+    
+    // Track game over event
+    if (onGameAction && gameRef.current) {
+      onGameAction('over', {
+        score: gameRef.current.getScore(),
+        high_score: gameRef.current.getHighScore()
+      });
+    }
+  }, [syncGameState, onGameAction]);
+  
+  // Track game start
+  const trackGameStart = useCallback(() => {
+    if (onGameAction && gameRef.current) {
+      onGameAction('start');
+    }
+  }, [onGameAction]);
   
   // Funkcja do obsługi schylania się
   const handleCrouch = useCallback((isCrouching: boolean) => {
     if (!gameRef.current) return;
     gameRef.current.handleCrouch(isCrouching);
-  }, []);
+    
+    // Track crouch action
+    if (onGameAction && isCrouching) {
+      onGameAction('crouch');
+    }
+  }, [onGameAction]);
   
   // Function to toggle debug mode
   const handleToggleDebug = useCallback(() => {
@@ -58,7 +82,12 @@ const GameCanvas: React.FC = () => {
   const handleActivateTurbo = useCallback(() => {
     if (!gameRef.current) return;
     gameRef.current.activateTurbo();
-  }, []);
+    
+    // Track turbo activation
+    if (onGameAction) {
+      onGameAction('turbo_activated');
+    }
+  }, [onGameAction]);
   
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -74,6 +103,13 @@ const GameCanvas: React.FC = () => {
     
     // Add custom event listener for game over
     newGame.onGameOver = handleGameOver;
+    
+    // Hook into game start
+    const originalStartMethod = newGame.start.bind(newGame);
+    newGame.start = () => {
+      originalStartMethod();
+      trackGameStart();
+    };
     
     // Initialize the game loop to show the dinosaur without starting gameplay
     newGame.stop(); // Stop any existing loops
@@ -138,7 +174,7 @@ const GameCanvas: React.FC = () => {
         gameRef.current.stop();
       }
     };
-  }, [handleGameOver, syncGameState, handleCrouch, handleActivateTurbo]);
+  }, [handleGameOver, syncGameState, handleCrouch, handleActivateTurbo, trackGameStart]);
   
   const handleJumpButtonClick = () => {
     if (!gameRef.current) return;
