@@ -3,7 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Faq from "./pages/Faq";
+import Faq from "./pages/faq";
 import NotFound from "./pages/NotFound";
 import DinoGame from "./pages/dino-game";
 import GamePage from "./pages/GamePage";

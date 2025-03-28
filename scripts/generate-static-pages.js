@@ -30,7 +30,8 @@ function getRoutesFromSitemap() {
         '/t-rex-chrome-dino-game',
         '/dino-run-game',
         '/history',
-        '/privacy-policy'
+        '/privacy-policy',
+        '/terms-of-service'
       ];
     }
 
@@ -41,15 +42,25 @@ function getRoutesFromSitemap() {
     
     const routes = [];
     for (let i = 0; i < urls.length; i++) {
-      const loc = urls[i].getElementsByTagName('loc')[0].textContent;
-      if (loc) {
+      const locElement = urls[i].getElementsByTagName('loc')[0];
+      if (locElement && locElement.textContent) {
+        const locUrl = locElement.textContent;
         // Extract path from URL
         try {
-          const url = new URL(loc);
+          const url = new URL(locUrl);
           routes.push(url.pathname);
         } catch (e) {
-          console.error(`Error parsing URL ${loc}:`, e);
+          console.error(`Error parsing URL ${locUrl}:`, e);
         }
+      }
+    }
+    
+    // Make sure all essential routes are included
+    const essentialRoutes = ['/history'];
+    for (const route of essentialRoutes) {
+      if (!routes.includes(route) && routes.length > 0) {
+        console.log(`Adding missing essential route: ${route}`);
+        routes.push(route);
       }
     }
     

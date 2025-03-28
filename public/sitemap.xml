@@ -152,6 +152,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://dinorunonline.com/history</loc>
+    <lastmod>2024-03-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://dinorunonline.com/privacy-policy</loc>
     <lastmod>2024-03-25</lastmod>
     <changefreq>monthly</changefreq>
