@@ -8,11 +8,12 @@ import DinoGame from "./pages/dino-game";
 import GamePage from "./pages/GamePage";
 import Index from "./pages/Index";
 import History from "./pages/history";
+import Faq from "./pages/faq";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import { useEffect } from "react";
 import useAnalytics from "./hooks/use-posthog";
-import Faq from "./pages/faq";
+
 
 const queryClient = new QueryClient();
 
