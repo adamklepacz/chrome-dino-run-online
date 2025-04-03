@@ -133,6 +133,9 @@ const DinoGame = () => {
 
 // Helper function to get SEO data based on the current path
 function getSeoDataForPath(path: string) {
+  // Define the single canonical URL for all game variants
+  const canonicalGameUrl = "https://dinorunonline.com";
+
   // Default SEO data for the main chrome-dino page
   const defaultData = {
     header: "Chrome Dino Game - T-Rex Runner Adventure",
@@ -144,7 +147,8 @@ function getSeoDataForPath(path: string) {
       title: "Chrome Dino - Play the Original T-Rex Runner Game Online",
       description: "Play the famous Chrome Dinosaur Game online for free. Jump over cacti, dodge obstacles, and set high scores in this T-Rex running adventure!",
       keywords: ["chrome dino", "dino game", "t-rex runner", "dinosaur game", "chrome offline game", "jumping dinosaur"],
-      canonicalUrl: `https://dinorunonline.com/${path || 'chrome-dino'}`,
+      // Always use the chosen canonical URL
+      canonicalUrl: canonicalGameUrl,
       ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
       ogType: "website"
     } as SeoType,
@@ -169,9 +173,9 @@ This browser game works on all devices including desktops, laptops, tablets, and
     ]
   };
 
-  // Path-specific SEO data
-  const pathData: Record<string, typeof defaultData> = {
-    'chrome-dino': {
+  // Path-specific SEO data overrides (titles, descriptions, etc.)
+  const pathSpecificOverrides: Record<string, Partial<typeof defaultData>> = {
+    'chrome-dino': { // Note: path is without trailing slash here based on component logic
       header: "Chrome Dino - The Original T-Rex Runner",
       subheader: "Play the famous Chrome browser dinosaur game online anytime - no internet disconnection required!",
       howToPlayTitle: "How to Play Chrome Dino",
@@ -181,18 +185,15 @@ This browser game works on all devices including desktops, laptops, tablets, and
         title: "Chrome Dino - Play the Original T-Rex Runner Game Online",
         description: "Play Chrome Dino, the famous T-Rex runner from Google Chrome browser, online for free. No internet disconnection required!",
         keywords: ["chrome dino", "t-rex runner", "dinosaur game", "chrome offline game", "jumping dinosaur"],
-        canonicalUrl: "https://dinorunonline.com/chrome-dino",
+        // Canonical URL remains the same
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
-      } as SeoType,
+      },
       seoContent: {
         title: "Chrome Dino - The Original No Internet Dinosaur Game",
         subtitle: "The famous offline dinosaur game from Google Chrome",
-        content: `Chrome Dino is Google Chrome's hidden dinosaur game that appears when you have no internet connection. Our online version lets you play this beloved T-Rex runner anytime, not just when your internet is down!
-
-This pixelated dinosaur runner has become one of the most played games in the world. The concept is simple - press space to make your T-Rex jump over cacti and duck under pterodactyls. As you progress, the game speeds up, making each jump increasingly challenging.
-
-Our Chrome Dino version stays true to the original while enhancing the experience with smoother animations and additional features. Play directly in your browser on any device - no downloads required!`,
+        content: `Chrome Dino is Google Chrome's hidden dinosaur game that appears when you have no internet connection. Our online version lets you play this beloved T-Rex runner anytime, not just when your internet is down!\\n\\nThis pixelated dinosaur runner has become one of the most played games in the world. The concept is simple - press space to make your T-Rex jump over cacti and duck under pterodactyls. As you progress, the game speeds up, making each jump increasingly challenging.\\n\\nOur Chrome Dino version stays true to the original while enhancing the experience with smoother animations and additional features. Play directly in your browser on any device - no downloads required!`,
         keywords: ["chrome dino", "t-rex runner", "chrome dinosaur", "offline game", "no internet game"],
       },
       structuredData: {
@@ -200,9 +201,9 @@ Our Chrome Dino version stays true to the original while enhancing the experienc
         description: "Play the famous Chrome Dinosaur Game online for free. No internet disconnection required to enjoy this T-Rex runner!"
       },
       relatedGames: [
-        { path: "/chromedino", title: "ChromeDino", description: "Alternative version" },
-        { path: "/dino-game", title: "Dino Game", description: "Classic dinosaur game" },
-        { path: "/google-dino", title: "Google Dino", description: "T-Rex running game" }
+        { path: "/chromedino/", title: "ChromeDino", description: "Alternative version" }, // Added trailing slash for consistency
+        { path: "/dino-game/", title: "Dino Game", description: "Classic dinosaur game" }, // Added trailing slash
+        { path: "/google-dino/", title: "Google Dino", description: "T-Rex running game" }  // Added trailing slash
       ]
     },
     'dino-game': {
@@ -215,18 +216,15 @@ Our Chrome Dino version stays true to the original while enhancing the experienc
         title: "Dino Game - Play the Classic T-Rex Runner Online",
         description: "Play the Dino Game online for free. Jump over cacti, dodge obstacles, and set high scores in this classic T-Rex runner!",
         keywords: ["dino game", "t-rex runner", "dinosaur game", "chrome dino", "jumping dinosaur"],
-        canonicalUrl: "https://dinorunonline.com/dino-game",
+        // Canonical URL remains the same
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
-      } as SeoType,
+      },
       seoContent: {
         title: "About the Dino Game",
         subtitle: "The classic dinosaur running game",
-        content: `Dino Game is a simple yet addictive runner featuring a prehistoric T-Rex that must navigate through an endless desert landscape. Originally appearing as an offline Easter egg in the Chrome browser, this game has gained immense popularity for its simple mechanics and challenging gameplay.
-
-The controls are straightforward - press space or tap to make your dinosaur jump over cacti, and duck to avoid flying pterodactyls. As you progress, the game gradually increases in speed, testing your reflexes and timing.
-
-Our version of the Dino Game works on all devices and is available to play anytime, with or without an internet connection. No downloads required - just load the page and start your dinosaur adventure!`,
+        content: `Dino Game is a simple yet addictive runner featuring a prehistoric T-Rex that must navigate through an endless desert landscape. Originally appearing as an offline Easter egg in the Chrome browser, this game has gained immense popularity for its simple mechanics and challenging gameplay.\\n\\nThe controls are straightforward - press space or tap to make your dinosaur jump over cacti, and duck to avoid flying pterodactyls. As you progress, the game gradually increases in speed, testing your reflexes and timing.\\n\\nOur version of the Dino Game works on all devices and is available to play anytime, with or without an internet connection. No downloads required - just load the page and start your dinosaur adventure!`,
         keywords: ["dino game", "dinosaur runner", "t-rex jumper", "chrome offline game", "endless runner"],
       },
       structuredData: {
@@ -234,9 +232,9 @@ Our version of the Dino Game works on all devices and is available to play anyti
         description: "Play the classic Dino Game online for free. Jump over cacti and dodge obstacles in this T-Rex running adventure!"
       },
       relatedGames: [
-        { path: "/chrome-dino", title: "Chrome Dino", description: "Original browser game" },
-        { path: "/dino-run", title: "Dino Run", description: "Endless runner version" },
-        { path: "/t-rex-chrome", title: "T-Rex Chrome", description: "Chrome browser game" }
+        { path: "/chrome-dino/", title: "Chrome Dino", description: "Original browser game" }, // Added trailing slash
+        { path: "/dino-run/", title: "Dino Run", description: "Endless runner version" }, // Added trailing slash
+        { path: "/t-rex-chrome/", title: "T-Rex Chrome", description: "Chrome browser game" } // Added trailing slash
       ]
     },
     'dino-run': {
@@ -248,29 +246,26 @@ Our version of the Dino Game works on all devices and is available to play anyti
       seo: {
         title: "Dino Run - Play the Classic Dinosaur Running Game Online",
         description: "Play Dino Run online for free. Control a jumping T-Rex, avoid obstacles, and achieve high scores in this addictive endless runner!",
-        keywords: ["dino run", "t-rex runner", "dinosaur game", "chrome dino", "endless runner"],
-        canonicalUrl: "https://dinorunonline.com/dino-run",
+        keywords: ["dino run", "t-rex runner", "endless runner", "dinosaur game", "chrome dino"],
+        // Canonical URL remains the same
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
-      } as SeoType,
+      },
       seoContent: {
         title: "About Dino Run",
-        subtitle: "The addictive dinosaur endless runner",
-        content: `Dino Run brings the excitement of controlling a prehistoric T-Rex as it races through an endless landscape filled with obstacles. This runner game combines simple gameplay mechanics with increasing difficulty for an addictive gaming experience.
-
-Originally inspired by Chrome's dinosaur game, Dino Run features improved graphics and gameplay while maintaining the core challenge - jump over cacti, dodge pterodactyls, and survive as long as possible. The game gradually speeds up as your score increases, testing your reflexes and timing.
-
-Play Dino Run on any device with a web browser - no downloads or installations required. Perfect for quick gaming sessions during breaks or whenever you need some quick entertainment!`,
-        keywords: ["dino run", "dinosaur runner", "t-rex game", "endless runner", "jumping dino"],
+        subtitle: "The endless dinosaur running challenge",
+        content: "Dino Run takes the classic T-Rex runner concept and focuses on the endless challenge. See how far you can run!",
+        keywords: ["dino run", "endless runner", "t-rex run", "dinosaur running game"],
       },
       structuredData: {
         name: "Dino Run",
-        description: "Play Dino Run online for free. Control a jumping T-Rex, avoid obstacles, and achieve high scores in this addictive endless runner!"
+        description: "Play Dino Run online for free. Control a jumping T-Rex, avoid obstacles, and achieve high scores!"
       },
       relatedGames: [
-        { path: "/chrome-dino", title: "Chrome Dino", description: "Original browser game" },
-        { path: "/dino-game", title: "Dino Game", description: "Classic dinosaur game" },
-        { path: "/run-dino-run", title: "Run Dino Run", description: "Extended runner game" }
+        { path: "/chrome-dino/", title: "Chrome Dino", description: "Original T-Rex game" }, // Added trailing slash
+        { path: "/dino-game/", title: "Dino Game", description: "Classic runner" }, // Added trailing slash
+        { path: "/run-dino-run/", title: "Run Dino Run", description: "Fast-paced version" } // Added trailing slash
       ]
     },
     'chromedino': {
@@ -283,7 +278,7 @@ Play Dino Run on any device with a web browser - no downloads or installations r
         title: "ChromeDino - Play The No-Internet Dinosaur Game Online",
         description: "Play ChromeDino online - the famous T-Rex runner from Chrome browser. Jump over cacti, dodge pterodactyls, and set new high scores!",
         keywords: ["chromedino", "chrome dinosaur", "t-rex runner", "dino game", "chrome offline game"],
-        canonicalUrl: "https://dinorunonline.com/chromedino",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -317,7 +312,7 @@ Play ChromeDino on any device with a web browser - no downloads or plugins requi
         title: "Google Dino - Play the Chrome Dinosaur Game Online",
         description: "Play Google Dino - the famous Chrome browser T-Rex runner game online. Jump over cacti, dodge obstacles, and set high scores!",
         keywords: ["google dino", "chrome dinosaur", "t-rex runner", "dino game", "chrome offline game"],
-        canonicalUrl: "https://dinorunonline.com/google-dino",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -351,7 +346,7 @@ Play Google Dino on any device with a browser - no need to disconnect from the i
         title: "Run Dino Run - Play the Endless T-Rex Runner Game Online",
         description: "Play Run Dino Run online, the addictive endless dinosaur runner. Jump over obstacles, dodge flying dangers, and see how far you can go!",
         keywords: ["run dino run", "endless runner", "dinosaur game", "jumping t-rex", "chrome dino"],
-        canonicalUrl: "https://dinorunonline.com/run-dino-run",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -385,7 +380,7 @@ Run Dino Run works perfectly on all devices from desktop computers to smartphone
         title: "T-Rex Chrome - Play the Famous Chrome Dinosaur Game Online",
         description: "Play T-Rex Chrome, the iconic dinosaur running game from Google Chrome browser. Jump over cacti, dodge obstacles, and set new high scores!",
         keywords: ["t-rex chrome", "chrome dinosaur", "offline game", "jumping dinosaur", "browser game"],
-        canonicalUrl: "https://dinorunonline.com/t-rex-chrome",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -419,7 +414,7 @@ Play T-Rex Chrome on any device with a web browser - no downloads or special req
         title: "Offline Dinosaurus - Play the Chrome No-Internet Game Online",
         description: "Play Offline Dinosaurus, the famous Chrome browser game that appears when you have no internet. Jump, duck, and dodge in this addictive runner!",
         keywords: ["offline dinosaurus", "no internet game", "chrome dinosaur", "t-rex runner", "browser game"],
-        canonicalUrl: "https://dinorunonline.com/offline-dinosaurus",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -453,7 +448,7 @@ Play Offline Dinosaurus on any device - desktop computers, laptops, tablets, or 
         title: "Chrome Dino Game - Play the T-Rex Runner Online",
         description: "Play the Chrome Dino Game online - the famous dinosaur runner from Google Chrome that appears when you have no internet connection.",
         keywords: ["chrome dino game", "t-rex runner", "dinosaur game", "chrome offline game", "jumping t-rex"],
-        canonicalUrl: "https://dinorunonline.com/chrome-dino-game",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -487,7 +482,7 @@ As your score increases, the game speeds up, making each jump more precise and t
         title: "Google Game Dino - Play the Hidden Chrome Dinosaur Game",
         description: "Play Google Game Dino online - the hidden dinosaur game from Chrome browser. Jump over cacti, dodge pterodactyls, and set high scores!",
         keywords: ["google game dino", "chrome t-rex", "hidden game", "offline dinosaur", "jumping game"],
-        canonicalUrl: "https://dinorunonline.com/google-game-dino",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -521,7 +516,7 @@ What started as a secret Easter egg in Chrome has become one of the most played 
         title: "T-Rex Chrome Dino Game - Play the Classic Runner Online",
         description: "Play T-Rex Chrome Dino Game online! The famous dinosaur runner from Google Chrome, available anytime with no internet disconnection required.",
         keywords: ["t-rex chrome dino game", "chrome dinosaur", "offline game", "jumping t-rex", "browser game"],
-        canonicalUrl: "https://dinorunonline.com/t-rex-chrome-dino-game",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -555,7 +550,7 @@ With simple controls and addictive gameplay, it's no wonder this game has become
         title: "Dino Run Game - Play the Classic T-Rex Runner Online",
         description: "Play Dino Run Game online for free. Control a jumping T-Rex, avoid obstacles, and achieve high scores in this endless runner adventure!",
         keywords: ["dino run game", "dinosaur runner", "t-rex game", "jumping dino", "endless runner"],
-        canonicalUrl: "https://dinorunonline.com/dino-run-game",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -589,7 +584,7 @@ This addictive runner works on all devices from desktop computers to smartphones
         title: "T-Rex Chrome Dino - Play the Offline Dinosaur Game Online",
         description: "Play T-Rex Chrome Dino online - the famous offline game from Google Chrome. Jump over cacti, dodge pterodactyls, and set new high scores!",
         keywords: ["t-rex chrome dino", "chrome dinosaur", "offline game", "jumping t-rex", "browser game"],
-        canonicalUrl: "https://dinorunonline.com/t-rex-chrome-dino",
+        canonicalUrl: canonicalGameUrl,
         ogImage: "https://dinorunonline.com/images/dino-game-screenshot.jpg",
         ogType: "website"
       } as SeoType,
@@ -615,25 +610,38 @@ What started as a simple Easter egg in Chrome has become one of the most recogni
     }
   };
 
-  // Add aliases for all other supported paths
-  const aliasMap: Record<string, string> = {
-    'chromedino': 'chromedino', // No longer an alias, has its own data
-    'google-dino': 'google-dino', // No longer an alias, has its own data
-    'google-game-dino': 'google-game-dino', // No longer an alias, has its own data
-    'chrome-dino-game': 'chrome-dino-game', // No longer an alias, has its own data
-    't-rex-chrome': 't-rex-chrome', // No longer an alias, has its own data
-    't-rex-chrome-dino': 't-rex-chrome-dino', // No longer an alias, has its own data
-    't-rex-chrome-dino-game': 't-rex-chrome-dino-game', // No longer an alias, has its own data
-    'offline-dinosaurus': 'offline-dinosaurus', // No longer an alias, has its own data
-    'run-dino-run': 'run-dino-run', // No longer an alias, has its own data
-    'dino-run-game': 'dino-run-game' // No longer an alias, has its own data
+  // Get the specific overrides for the current path, or use empty object if none
+  const specificOverrides = pathSpecificOverrides[path] || {};
+
+  // Merge defaultData with specificOverrides, ensuring deep merge for seo, seoContent, etc.
+  // A simple {...defaultData, ...specificOverrides} won't deep merge nested objects.
+  // We need to handle nested objects like 'seo' and 'seoContent' carefully.
+
+  const mergedData = {
+    ...defaultData,
+    ...specificOverrides,
+    // Deep merge 'seo' object
+    seo: {
+      ...defaultData.seo,
+      ...(specificOverrides.seo || {}),
+      // Ensure canonicalUrl is ALWAYS the chosen one, overriding any specific one
+      canonicalUrl: canonicalGameUrl
+    } as SeoType,
+    // Deep merge 'seoContent' object
+    seoContent: {
+      ...defaultData.seoContent,
+      ...(specificOverrides.seoContent || {})
+    },
+     // Deep merge 'structuredData' object
+     structuredData: {
+      ...defaultData.structuredData,
+      ...(specificOverrides.structuredData || {})
+    },
+    // Use specific relatedGames if provided, otherwise default
+    relatedGames: specificOverrides.relatedGames || defaultData.relatedGames,
   };
 
-  // If the path is an alias, use the data from the target path
-  const targetPath = aliasMap[path] || path;
-  
-  // Return the data for the specific path, or the default data if not found
-  return pathData[targetPath] || defaultData;
+  return mergedData;
 }
 
 export default DinoGame; 
