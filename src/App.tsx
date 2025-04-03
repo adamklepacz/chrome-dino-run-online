@@ -12,7 +12,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import { useEffect } from "react";
 import useAnalytics from "./hooks/use-posthog";
-import Faq from "./pages/Faq";
+import Faq from "./pages/faq";
 
 const queryClient = new QueryClient();
 
@@ -27,30 +27,30 @@ const AppRoutes = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
-        <Route path="/history" element={<History />} />
+        <Route path="/history/" element={<History />} />
         {/* Dino game variants - ranked by search volume */}
-        <Route path="/chrome-dino" element={<DinoGame />} /> {/* 10k-100k */}
-        <Route path="/chromedino" element={<DinoGame />} /> {/* 10k-100k */}
-        <Route path="/dino-game" element={<DinoGame />} /> {/* 10k-100k */}
-        <Route path="/dino-run" element={<DinoGame />} /> {/* 1k-10k */}
-        <Route path="/google-dino" element={<DinoGame />} /> {/* 1k-10k */}
-        <Route path="/run-dino-run" element={<DinoGame />} /> {/* 1k-10k */}
-        <Route path="/t-rex-chrome" element={<DinoGame />} /> {/* 100-1k */}
-        <Route path="/offline-dinosaurus" element={<DinoGame />} /> {/* 100-1k */}
-        <Route path="/chrome-dino-game" element={<DinoGame />} /> {/* 100-1k */}
-        <Route path="/google-game-dino" element={<DinoGame />} /> {/* 100-1k */}
-        <Route path="/t-rex-chrome-dino-game" element={<DinoGame />} /> {/* 10-100 */}
-        <Route path="/dino-run-game" element={<DinoGame />} /> {/* 10-100 */}
+        <Route path="/chrome-dino/" element={<DinoGame />} /> {/* 10k-100k */}
+        <Route path="/chromedino/" element={<DinoGame />} /> {/* 10k-100k */}
+        <Route path="/dino-game/" element={<DinoGame />} /> {/* 10k-100k */}
+        <Route path="/dino-run/" element={<DinoGame />} /> {/* 1k-10k */}
+        <Route path="/google-dino/" element={<DinoGame />} /> {/* 1k-10k */}
+        <Route path="/run-dino-run/" element={<DinoGame />} /> {/* 1k-10k */}
+        <Route path="/t-rex-chrome/" element={<DinoGame />} /> {/* 100-1k */}
+        <Route path="/offline-dinosaurus/" element={<DinoGame />} /> {/* 100-1k */}
+        <Route path="/chrome-dino-game/" element={<DinoGame />} /> {/* 100-1k */}
+        <Route path="/google-game-dino/" element={<DinoGame />} /> {/* 100-1k */}
+        <Route path="/t-rex-chrome-dino-game/" element={<DinoGame />} /> {/* 10-100 */}
+        <Route path="/dino-run-game/" element={<DinoGame />} /> {/* 10-100 */}
         
         {/* Game categories */}
-        {/* <Route path="/free-online-game" element={<GamePage />} /> 
-        <Route path="/free-online-games" element={<GamePage />} />
-        <Route path="/simple-web-game" element={<GamePage />} /> 
-        <Route path="/simple-web-games" element={<GamePage />} /> */}
+        {/* <Route path="/free-online-game/" element={<GamePage />} /> 
+        <Route path="/free-online-games/" element={<GamePage />} />
+        <Route path="/simple-web-game/" element={<GamePage />} /> 
+        <Route path="/simple-web-games/" element={<GamePage />} /> */}
         
-        <Route path="/faq" element={<Faq />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-of-service" element={<TermsOfService />} />
+        <Route path="/faq/" element={<Faq />} />
+        <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
+        <Route path="/terms-of-service/" element={<TermsOfService />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
