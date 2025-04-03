@@ -31,7 +31,8 @@ function getRoutesFromSitemap() {
         '/dino-run-game',
         '/history',
         '/privacy-policy',
-        '/terms-of-service'
+        '/terms-of-service',
+        '/who-created-the-dinosaur-game'
       ];
     }
 
@@ -84,7 +85,9 @@ function getRoutesFromSitemap() {
       '/t-rex-chrome-dino-game',
       '/dino-run-game',
       '/history',
-      '/privacy-policy'
+      '/privacy-policy',
+      '/terms-of-service',
+      '/who-created-the-dinosaur-game'
     ];
   }
 }

@@ -8,9 +8,10 @@ import DinoGame from "./pages/dino-game";
 import GamePage from "./pages/GamePage";
 import Index from "./pages/Index";
 import History from "./pages/history";
-import Faq from "./pages/Faq";
+import Faq from "./pages/faq";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
+import WhoCreatedDinosaurGame from './pages/who-created-the-dinosaur-game';
 import { useEffect } from "react";
 import useAnalytics from "./hooks/use-posthog";
 
@@ -43,12 +44,9 @@ const AppRoutes = () => {
         <Route path="/t-rex-chrome-dino-game/" element={<DinoGame />} /> {/* 10-100 */}
         <Route path="/dino-run-game/" element={<DinoGame />} /> {/* 10-100 */}
         
-        {/* Game categories */}
-        {/* <Route path="/free-online-game/" element={<GamePage />} /> 
-        <Route path="/free-online-games/" element={<GamePage />} />
-        <Route path="/simple-web-game/" element={<GamePage />} /> 
-        <Route path="/simple-web-games/" element={<GamePage />} /> */}
-        
+        {/* Content Pages */}
+        <Route path="/who-created-the-dinosaur-game/" element={<WhoCreatedDinosaurGame />} />
+        <Route path="/history/" element={<History />} />
         <Route path="/faq/" element={<Faq />} />
         <Route path="/privacy-policy/" element={<PrivacyPolicy />} />
         <Route path="/terms-of-service/" element={<TermsOfService />} />
